@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Granny's Kitchen — Cooking tips with love</title>
+<meta name="description" content="Chat with Granny Rosa: recipes, kitchen tricks and ingredient substitutions, served with love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Caveat:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   GRANNY'S KITCHEN — vintage kitchen table design
+   Palette:
+     --gingham  #B5382C  (tablecloth red)
+     --paper    #FBF3E4  (butter-cream paper)
+     --ink      #4A342A  (warm brown ink)
+     --sage     #7C8A5E  (herb green)
+     --butter   #E9B44C  (butter yellow accent)
+   ========================================================= */
+
+:root{
+  --gingham:#B5382C;
+  --gingham-dark:#96291f;
+  --paper:#FBF3E4;
+  --paper-deep:#F3E6CF;
+  --ink:#4A342A;
+  --ink-soft:#7a6355;
+  --sage:#7C8A5E;
+  --sage-deep:#5f6c46;
+  --butter:#E9B44C;
+  --card-shadow:0 3px 10px rgba(74,52,42,.18);
+  --radius:14px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Nunito',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--gingham);
+}
+
+/* ---------- gingham tablecloth backdrop ---------- */
+.tablecloth{
+  position:fixed;inset:0;z-index:0;
+  background-color:var(--gingham);
+  background-image:
+    linear-gradient(rgba(255,255,255,.32) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(255,255,255,.32) 50%, transparent 50%);
+  background-size:46px 46px;
+  background-blend-mode:overlay;
+}
+.tablecloth::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(150,41,31,.35) 50%, transparent 50%) 0 23px/46px 46px,
+    linear-gradient(90deg, rgba(150,41,31,.35) 50%, transparent 50%) 23px 0/46px 46px;
+}
+
+/* ---------- main sheet ---------- */
+.kitchen{
+  position:relative;z-index:1;
+  max-width:680px;
+  margin:0 auto;
+  min-height:100dvh;
+  display:flex;flex-direction:column;
+  background:var(--paper);
+  background-image:radial-gradient(rgba(74,52,42,.045) 1px, transparent 1.4px);
+  background-size:22px 22px;
+  box-shadow:0 0 40px rgba(0,0,0,.35);
+}
+
+/* ---------- header banner ---------- */
+.banner{
+  position:relative;
+  display:flex;align-items:center;gap:16px;
+  padding:18px 22px 22px;
+  background:var(--paper-deep);
+  border-bottom:3px dashed rgba(181,56,44,.45);
+}
+.banner h1{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(1.5rem,5vw,2.1rem);
+  margin:0;color:var(--gingham);
+  letter-spacing:.5px;
+}
+.banner-sub{
+  font-family:'Caveat',cursive;
+  font-size:clamp(1.05rem,3.5vw,1.3rem);
+  margin:2px 0 0;color:var(--ink-soft);
+}
+.banner-avatar{
+  position:relative;flex:0 0 auto;
+  width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #fff, var(--butter));
+  border:3px solid var(--gingham);
+  display:grid;place-items:center;
+  font-size:2rem;
+  box-shadow:var(--card-shadow);
+}
+.avatar-pot{
+  position:absolute;right:-8px;bottom:-6px;
+  font-size:1.1rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25));
+}
+.banner-avatar.cooking .avatar-face{animation:stir 1s ease-in-out infinite}
+@keyframes stir{
+  0%,100%{transform:rotate(-4deg)}
+  50%{transform:rotate(5deg) translateY(-2px)}
+}
+.banner-stitch{
+  position:absolute;left:12px;right:12px;bottom:6px;height:0;
+  border-bottom:2px dotted rgba(124,138,94,.6);
+}
+
+/* ---------- chat area ---------- */
+.chat{
+  flex:1;
+  padding:20px 16px 8px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+  display:flex;flex-direction:column;gap:14px;
+}
+
+.msg{
+  max-width:86%;
+  padding:11px 15px;
+  border-radius:var(--radius);
+  line-height:1.5;
+  font-size:.98rem;
+  box-shadow:var(--card-shadow);
+  animation:pop .28s ease both;
+  overflow-wrap:break-word;
+}
+@keyframes pop{
+  from{opacity:0;transform:translateY(8px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+.msg.granny{
+  align-self:flex-start;
+  background:#fff;
+  border:1.5px solid rgba(181,56,44,.25);
+  border-top-left-radius:4px;
+}
+.msg.granny .who{
+  display:block;
+  font-family:'Caveat',cursive;
+  font-size:1.15rem;font-weight:700;
+  color:var(--gingham);
+  margin-bottom:2px;
+}
+.msg.user{
+  align-self:flex-end;
+  background:var(--sage);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+.msg a{color:var(--gingham);font-weight:700}
+.msg.user a{color:#fff}
+.msg .note{
+  display:block;margin-top:6px;
+  font-size:.85rem;color:var(--ink-soft);font-style:italic;
+}
+
+/* ---------- recipe index card ---------- */
+.recipe-card{
+  align-self:flex-start;
+  width:min(420px,94%);
+  background:linear-gradient(#fffdf6,#fdf6e3);
+  border:1px solid rgba(74,52,42,.2);
+  border-radius:6px;
+  box-shadow:var(--card-shadow);
+  transform:rotate(-.6deg);
+  position:relative;
+  animation:pop .32s ease both;
+  overflow:hidden;
+}
+.recipe-card:nth-child(even){transform:rotate(.5deg)}
+.recipe-card::before{               /* washi tape */
+  content:"";
+  position:absolute;top:-8px;left:50%;
+  width:98px;height:24px;
+  transform:translateX(-50%) rotate(-2deg);
+  background:repeating-linear-gradient(45deg,
+      rgba(233,180,76,.85) 0 8px, rgba(233,180,76,.65) 8px 16px);
+  border-left:1px dashed rgba(255,255,255,.7);
+  border-right:1px dashed rgba(255,255,255,.7);
+  z-index:2;
+}
+.recipe-card img.photo{
+  width:100%;height:180px;object-fit:cover;display:block;
+  border-bottom:2px dashed rgba(181,56,44,.35);
+}
+.recipe-body{padding:14px 16px 16px}
+.recipe-title{
+  font-family:'Caveat',cursive;
+  font-size:1.6rem;font-weight:700;
+  margin:0 0 4px;color:var(--ink);
+}
+.recipe-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.badge{
+  font-size:.72rem;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;
+}
+.badge.cat{background:rgba(181,56,44,.12);color:var(--gingham)}
+.badge.area{background:rgba(124,138,94,.16);color:var(--sage-deep)}
+.recipe-ings{
+  margin:0 0 6px;padding:0;list-style:none;
+  columns:2;column-gap:18px;
+  font-size:.88rem;
+}
+.recipe-ings li{
+  break-inside:avoid;
+  padding:2px 0 2px 16px;position:relative;
+}
+.recipe-ings li::before{
+  content:"•";position:absolute;left:2px;color:var(--butter);
+  font-weight:900;
+}
+.recipe-ings .measure{color:var(--ink-soft)}
+details.method{margin-top:8px}
+details.method summary{
+  cursor:pointer;font-weight:800;color:var(--sage-deep);
+  font-size:.9rem;list-style:none;display:flex;align-items:center;gap:6px;
+}
+details.method summary::before{content:"📖"}
+details.method[open] summary::before{content:"📖"}
+details.method summary::marker{display:none}
+.method-text{
+  margin-top:8px;font-size:.88rem;line-height:1.55;
+  white-space:pre-line;color:var(--ink);
+  border-left:3px solid var(--butter);
+  padding-left:10px;
+}
+.recipe-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rc-btn{
+  border:none;cursor:pointer;
+  font-family:'Nunito';font-weight:800;font-size:.82rem;
+  padding:8px 13px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:transform .15s, box-shadow .15s;
+  text-decoration:none;
+}
+.rc-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.rc-btn.video{background:#ff0000;color:#fff}
+.rc-btn.ask{background:var(--butter);color:var(--ink)}
+
+/* ---------- meal pick list ---------- */
+.pick-list{
+  align-self:flex-start;
+  display:flex;gap:10px;overflow-x:auto;
+  max-width:100%;padding:6px 2px 10px;
+  scrollbar-width:thin;
+}
+.pick{
+  flex:0 0 130px;border:none;cursor:pointer;
+  background:#fff;border-radius:10px;overflow:hidden;
+  box-shadow:var(--card-shadow);
+  font-family:'Nunito';font-size:.78rem;font-weight:700;color:var(--ink);
+  padding:0 0 8px;text-align:center;
+  transition:transform .15s;
+}
+.pick:hover{transform:translateY(-3px)}
+.pick img{width:100%;height:86px;object-fit:cover;display:block;margin-bottom:6px}
+.pick span{display:block;padding:0 8px;line-height:1.25}
+
+/* ---------- typing indicator ---------- */
+.typing{
+  display:flex;align-items:center;gap:9px;
+  padding:6px 20px 10px;color:var(--ink-soft);
+  font-family:'Caveat',cursive;font-size:1.15rem;
+}
+.dots i{
+  display:inline-block;width:7px;height:7px;margin-right:4px;
+  border-radius:50%;background:var(--gingham);
+  animation:bounce 1s infinite;
+}
+.dots i:nth-child(2){animation-delay:.15s}
+.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{
+  0%,60%,100%{transform:translateY(0);opacity:.5}
+  30%{transform:translateY(-6px);opacity:1}
+}
+
+/* ---------- chips ---------- */
+.chips{
+  display:flex;gap:8px;overflow-x:auto;
+  padding:8px 14px;
+  scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;border:1.5px solid rgba(181,56,44,.4);
+  background:#fff;color:var(--gingham);
+  font-family:'Nunito';font-weight:800;font-size:.82rem;
+  padding:7px 14px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s,transform .15s;
+}
+.chip:hover{background:var(--gingham);color:#fff;transform:translateY(-1px)}
+
+/* ---------- input bar ---------- */
+.inputbar{
+  display:flex;gap:10px;align-items:center;
+  padding:12px 14px 14px;
+  background:var(--paper-deep);
+  border-top:3px dashed rgba(181,56,44,.45);
+}
+#inputBox{
+  flex:1;border:2px solid rgba(74,52,42,.25);
+  border-radius:999px;
+  padding:12px 18px;font-size:1rem;font-family:'Nunito';
+  background:#fff;color:var(--ink);outline:none;
+  transition:border-color .15s, box-shadow .15s;
+}
+#inputBox:focus{
+  border-color:var(--sage);
+  box-shadow:0 0 0 3px rgba(124,138,94,.25);
+}
+.send{
+  flex:0 0 auto;width:52px;height:52px;border-radius:50%;
+  border:none;cursor:pointer;
+  background:var(--gingham);
+  display:grid;place-items:center;
+  box-shadow:var(--card-shadow);
+  transition:transform .15s, background .15s;
+}
+.send:hover{background:var(--gingham-dark);transform:rotate(-10deg) scale(1.05)}
+.send .spoon{font-size:1.5rem;transform:rotate(35deg)}
+
+/* ---------- footer ---------- */
+.credits{
+  text-align:center;font-size:.72rem;color:var(--ink-soft);
+  padding:8px 14px 12px;background:var(--paper-deep);
+}
+.credits a{color:var(--sage-deep)}
+
+/* ---------- quick replies (in-chat buttons) ---------- */
+.qr{
+  display:flex;flex-wrap:wrap;gap:8px;
+  align-self:flex-start;max-width:92%;
+  animation:pop .28s ease both;
+}
+.qr-btn{
+  border:1.5px solid rgba(124,138,94,.55);
+  background:#fff;color:var(--sage-deep);
+  font-family:'Nunito';font-weight:800;font-size:.85rem;
+  padding:8px 14px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s,transform .15s;
+}
+.qr-btn:hover{background:var(--sage);color:#fff;transform:translateY(-1px)}
+.qr-btn.on{background:var(--sage);color:#fff;box-shadow:inset 0 0 0 2px var(--butter)}
+.qr.used .qr-btn{opacity:.45;pointer-events:none}
+
+/* ---------- profile strip ---------- */
+.profile-strip{
+  padding:7px 18px;font-size:.8rem;color:var(--ink-soft);
+  background:rgba(124,138,94,.14);
+  border-bottom:1px dashed rgba(124,138,94,.5);
+}
+.strip-btn{
+  border:none;background:none;color:var(--sage-deep);
+  font-weight:800;text-decoration:underline;cursor:pointer;
+  font-family:'Nunito';font-size:.78rem;padding:0 2px;
+}
+
+/* ---------- LLM recipe card (Granny's own) ---------- */
+.recipe-card.llm{background:linear-gradient(#fffef8,#fbf2dd)}
+.recipe-card.llm::before{
+  background:repeating-linear-gradient(45deg,
+      rgba(124,138,94,.85) 0 8px, rgba(124,138,94,.6) 8px 16px);
+}
+.llm-photo{
+  width:100%;height:130px;display:grid;place-items:center;
+  font-size:3.4rem;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(233,180,76,.5), transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(181,56,44,.3), transparent 55%),
+    var(--paper-deep);
+  border-bottom:2px dashed rgba(124,138,94,.5);
+}
+.badge.brain{background:rgba(233,180,76,.3);color:#8a6412}
+.granny-tip{
+  margin:10px 0 0;font-family:'Caveat',cursive;
+  font-size:1.15rem;color:var(--sage-deep);line-height:1.35;
+}
+.rc-btn.web{background:var(--sage);color:#fff}
+
+/* ---------- profile warning inside a recipe card ---------- */
+.warnbox{
+  margin:0 0 10px;padding:9px 12px;
+  background:rgba(181,56,44,.08);
+  border:1.5px dashed rgba(181,56,44,.5);
+  border-radius:8px;font-size:.84rem;line-height:1.5;
+}
+
+/* ---------- accessibility / motion ---------- */
+.chip:focus-visible,.send:focus-visible,.pick:focus-visible,.qr-btn:focus-visible,.strip-btn:focus-visible,
+.rc-btn:focus-visible,#inputBox:focus-visible{
+  outline:3px solid var(--butter);outline-offset:2px;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .chat{scroll-behavior:auto}
+}
+
+/* ---------- small screens ---------- */
+@media (max-width:480px){
+  .recipe-ings{columns:1}
+  .banner{padding:14px 16px 18px}
+  .msg{max-width:92%}
+}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👵</text></svg>">
+</head>
+<body><div style="position:sticky;top:0;z-index:9;background:#4A342A;color:#FBF3E4;
+font:700 12px Nunito,sans-serif;text-align:center;padding:6px 10px">
+PRÉVIA (sandbox) — onboarding, tipos de ingrediente, molhos, dicas e substituições funcionam aqui; receitas ao vivo no index.html local; IA na Vercel</div>
+
+<div class="tablecloth" aria-hidden="true"></div>
+
+<main class="kitchen">
+
+  <!-- ===== Header banner ===== -->
+  <header class="banner">
+    <div class="banner-avatar" id="grannyAvatar">
+      <span class="avatar-face">👵</span>
+      <span class="avatar-pot" aria-hidden="true">🍲</span>
+    </div>
+    <div class="banner-text">
+      <h1>Granny's Kitchen</h1>
+      <p class="banner-sub">Recipes, tricks &amp; substitutions — served with love</p>
+    </div>
+    <div class="banner-stitch" aria-hidden="true"></div>
+  </header>
+
+  <!-- ===== Active profile strip ===== -->
+  <div class="profile-strip" id="profileStrip" hidden></div>
+
+  <!-- ===== Chat area ===== -->
+  <section class="chat" id="chat" aria-live="polite" aria-label="Conversation with Granny Rosa">
+    <!-- messages are inserted here by app.js -->
+  </section>
+
+  <!-- ===== Typing indicator ===== -->
+  <div class="typing" id="typing" hidden>
+    <span class="typing-avatar">👵</span>
+    <span class="typing-label" id="typingLabel">Granny is stirring the pot</span>
+    <span class="dots"><i></i><i></i><i></i></span>
+  </div>
+
+  <!-- ===== Quick suggestion chips ===== -->
+  <div class="chips" id="chips" role="toolbar" aria-label="Quick suggestions">
+    <button class="chip" data-say="Surprise me with a recipe!">🎲 Surprise me!</button>
+    <button class="chip" data-say="I have chicken, rice and tomatoes">🧺 My fridge…</button>
+    <button class="chip" data-say="What can I use instead of eggs?">🥚 Substitute eggs</button>
+    <button class="chip" data-say="invent a dish with rice and beans">👵 Invent for me</button>
+    <button class="chip" data-say="show me the sauces">🥄 Sauces</button>
+    <button class="chip" data-say="Give me one of your kitchen tips">✨ Granny's tip</button>
+    <button class="chip" data-say="my preferences">⚙️ Preferences</button>
+  </div>
+
+  <!-- ===== Input bar ===== -->
+  <form class="inputbar" id="inputForm" autocomplete="off">
+    <input id="inputBox" type="text" maxlength="300"
+           placeholder="Ask Granny anything about cooking…"
+           aria-label="Type your message to Granny">
+    <button type="submit" class="send" aria-label="Send message">
+      <span class="spoon">🥄</span>
+    </button>
+  </form>
+
+  <footer class="credits">
+    Recipes &amp; photos from <a href="https://www.themealdb.com" target="_blank" rel="noopener">TheMealDB</a>
+    · Granny's brain powered by <a href="https://www.anthropic.com" target="_blank" rel="noopener">Claude</a>
+    · A classroom experiment 🧑‍🍳
+  </footer>
+
+</main>
+
+<script>
+/* =========================================================
+   GRANNY'S KITCHEN — generalist hybrid engine v2
+   Sources (in order, never hallucinating):
+     1. Rules + local knowledge (tips, substitutions)   → free
+     2. TheMealDB live API (photos, real YouTube links) → free
+     3. Claude structured recipes (classic dishes only,
+        real search links, never invented URLs)         → cents
+   User profile (diet / allergies / dislikes) filters everything.
+   ========================================================= */
+
+"use strict";
+
+/* ---------------- Granny's local knowledge ---------------- */
+
+const GRANNY_TIPS = [
+  "Always salt your pasta water until it tastes like the sea, dear — it's the only chance the pasta has to soak up flavor! 🌊",
+  "Let meat rest after cooking, sweetheart. Five little minutes and all those lovely juices stay inside instead of on the cutting board.",
+  "Room-temperature eggs whip up much fluffier than cold ones. Take them out of the fridge before you start, honey. 🥚",
+  "A splash of vinegar in the water makes poached eggs hold together like a warm hug.",
+  "Don't crowd the pan, dear! Give everything space or it steams instead of browning. Patience makes crispy things crispy. ✨",
+  "Save your pasta water! A ladle of that starchy gold makes any sauce silky and helps it cling to the noodles.",
+  "Sharpen your knives, sweetheart. A sharp knife is a safe knife — dull ones slip and bite fingers.",
+  "Taste as you go! Season little by little. You can always add more salt, but you can't take it out. 🧂",
+  "When onions make you cry, chill them in the freezer for 10 minutes first. Granny's eyes thank me every time.",
+  "Toast your spices in a dry pan for 30 seconds before using — it wakes up their perfume like nothing else. 🌶️",
+  "Add a pinch of salt to sweet things and a pinch of sugar to tomato sauce. Balance, dear, balance!",
+  "Rest your cookie dough in the fridge overnight. The flavor gets deeper and the cookies chewier. Worth the wait! 🍪",
+  "Rub lemon on your hands after chopping garlic — the smell vanishes like magic. 🍋",
+  "If your soup is too salty, drop in a peeled raw potato while it simmers. It drinks up the extra salt.",
+  "Warm your plates before serving hot food, honey. Cold plates steal the heat — and the joy.",
+];
+
+const SUBSTITUTIONS = {
+  "egg": "For 1 egg in baking: 1 mashed ripe banana 🍌, ¼ cup unsweetened applesauce, or 1 tbsp ground flaxseed + 3 tbsp water (rest 5 min). For binding burgers: 2 tbsp breadcrumbs + a splash of milk.",
+  "butter": "Swap butter 1:1 with margarine, or use ¾ the amount in neutral oil. In baking, mashed avocado or applesauce works for half the butter — a bit denser, but lovely and moist.",
+  "buttermilk": "Stir 1 tbsp lemon juice or white vinegar into 1 cup of milk and wait 5–10 minutes until it curdles a little. Granny's instant buttermilk! 🥛",
+  "milk": "Any plant milk works 1:1 (oat is the creamiest). In a pinch: ½ cup evaporated milk + ½ cup water, or even plain yogurt thinned with water.",
+  "baking powder": "For 1 tsp baking powder: ¼ tsp baking soda + ½ tsp cream of tartar, or ¼ tsp baking soda + ½ tsp lemon juice/vinegar added to the wet ingredients.",
+  "baking soda": "Use 3× the amount of baking powder (and reduce salt slightly). The rise is gentler but it works, dear.",
+  "sugar": "Swap white sugar 1:1 with brown sugar (cozier flavor) or ¾ cup honey per cup of sugar — and reduce other liquids by 2 tbsp. 🍯",
+  "brown sugar": "1 cup white sugar + 1 tbsp molasses, rubbed together with your fingertips. Smells like Granny's kitchen already!",
+  "honey": "Swap with maple syrup 1:1, or 1¼ cup sugar + ¼ cup extra liquid per cup of honey.",
+  "flour": "For thickening sauces: half the amount of cornstarch. For baking, a 1:1 gluten-free blend usually behaves nicely.",
+  "cornstarch": "Use 2 tbsp flour for every 1 tbsp cornstarch, or 1 tbsp arrowroot / potato starch 1:1.",
+  "sour cream": "Plain Greek yogurt, 1:1. Nobody will ever know, sweetheart. 🤫",
+  "yogurt": "Sour cream 1:1, or buttermilk in batters (a little thinner, so hold back other liquid).",
+  "heavy cream": "¾ cup milk + ¼ cup melted butter per cup (for cooking, not whipping). For whipping, chill coconut cream overnight and whip the solid part.",
+  "cream cheese": "Blend cottage cheese until smooth, or use thick Greek yogurt for spreads and fillings.",
+  "cheese": "Nutritional yeast brings the savory note in sauces; firm tofu crumbles like feta; a dairy-free shred melts fine on pizza, dear.",
+  "wine": "White wine → chicken/veg broth + a squeeze of lemon. Red wine → beef broth + a splash of vinegar or grape juice. The alcohol was for flavor, and flavor we can find elsewhere!",
+  "tomato sauce": "1 can of tomato paste + 1 can of water, seasoned with a pinch of sugar, salt and dried herbs.",
+  "tomato paste": "Use 2–3 tbsp of tomato sauce simmered down, or ketchup in a true emergency (reduce the sugar elsewhere, dear).",
+  "garlic": "½ tsp garlic powder ≈ 1 fresh clove. Shallots or a pinch of asafoetida can stand in for the aroma.",
+  "onion": "1 medium onion ≈ 1 tsp onion powder or 1 tbsp dried minced onion. Leeks and shallots are gentle cousins that work beautifully.",
+  "lemon": "Half the amount of white vinegar, or lime juice 1:1. For zest, a tiny drop of lemon extract. 🍋",
+  "breadcrumbs": "Crushed crackers, oats pulsed in a blender, crushed cornflakes, or day-old bread toasted and grated — Granny never wastes bread!",
+  "soy sauce": "Worcestershire sauce 1:1, or ½ tsp salt dissolved in 1 tbsp water with a drop of vinegar.",
+  "vanilla": "Maple syrup 1:1, or a bit of almond extract (use half — it's stronger). Or simply leave it out of chocolatey things; the chocolate carries the song.",
+  "olive oil": "Any neutral vegetable oil for cooking. For salads, try a nut oil — different, but delightful.",
+  "mayonnaise": "Greek yogurt or sour cream in salads (add a pinch of salt and a drop of mustard).",
+  "vinegar": "Lemon or lime juice 1:1 in dressings and marinades.",
+  "oil": "In baking: melted butter 1:1, or applesauce for half the oil to keep things light and moist.",
+  "chicken": "Firm tofu, chickpeas or mushrooms take on flavors beautifully in most chicken dishes, dear.",
+  "beef": "Lentils or mushrooms for mince dishes; jackfruit shreds like slow-cooked beef. Season boldly!",
+  "fish": "Hearts of palm or chickpeas in 'fish' cakes; tofu wrapped in nori brings the sea's perfume.",
+  "shrimp": "King oyster mushrooms sliced into coins have a lovely bite, or white beans in pastas.",
+  "nuts": "Toasted seeds! Pumpkin or sunflower seeds give the crunch without the worry, sweetheart.",
+  "peanut butter": "Sunflower seed butter or tahini, 1:1 — same creamy hug, no peanuts.",
+};
+
+/* ---------------- Ingredient types (disambiguation) ---------------- */
+/* When the user mentions just "rice", Granny asks WHICH rice — and each
+   answer carries its own cooking wisdom and recipe direction. */
+
+const INGREDIENT_TYPES = {
+  "rice": {
+    ask: "Ooh, rice! And which kind is sitting in your pantry, dear? 🍚",
+    variants: [
+      {label:"Jasmine", keys:["jasmine"], search:"thai",
+       tip:"Rinse jasmine 2–3 times, then 1 cup rice to 1¼ water, lid on, 12 minutes + 10 resting. It perfumes the whole house! 🌸"},
+      {label:"Basmati", keys:["basmati"], search:"biryani",
+       tip:"Rinse basmati until the water runs clear, soak 20 minutes, then 1 : 1½ water. The grains stay long and proud, dear."},
+      {label:"Short grain / sushi", keys:["short grain","sushi"], search:"teriyaki",
+       tip:"Short grain loves its starch — rinse gently, and after cooking let it rest under a cloth. Sticky is the point, sweetheart!"},
+      {label:"Long grain", keys:["long grain","white rice"], search:"fried rice",
+       tip:"Long grain rule: fluff with a fork and NEVER stir while it cooks — stirring wakes the starch and makes glue."},
+      {label:"Arborio (risotto)", keys:["arborio","risotto"], search:"risotto",
+       tip:"Arborio wants warm broth, one ladle at a time, stirring with love. Eighteen minutes of meditation. 🥄"},
+      {label:"Any rice will do!", keys:["any"], search:null, tip:null},
+    ],
+  },
+  "pasta": {
+    ask: "Pasta night! And what shape are we twirling, dear? 🍝",
+    variants: [
+      {label:"Long (spaghetti, linguine…)", keys:["spaghetti","linguine","fettuccine","long","tagliatelle"], search:"spaghetti",
+       tip:"Granny's law: long pasta loves smooth, clingy sauces — oil, cream, tomato. Save a cup of pasta water to marry them!"},
+      {label:"Short (penne, fusilli…)", keys:["penne","fusilli","rigatoni","macaroni","short"], search:"penne",
+       tip:"Short shapes are little cups — chunky sauces hide inside every tube. That's why penne loves ragù, dear."},
+      {label:"Sheets (lasagna)", keys:["lasagn","sheets"], search:"lasagne",
+       tip:"For lasagna sheets: slightly undercook them, and let the finished dish REST 15 minutes before cutting. Patience = clean slices!"},
+      {label:"Any pasta!", keys:["any"], search:null, tip:null},
+    ],
+  },
+  "potatoes": {
+    ask: "Ah, the humble potato — Granny's oldest friend! Which kind, dear? 🥔",
+    variants: [
+      {label:"Starchy (Russet)", keys:["starchy","russet","baking"], search:"mash",
+       tip:"Starchy potatoes fall apart beautifully — perfect for mash and fluffy insides. Start them in COLD salted water so they cook evenly."},
+      {label:"Waxy (new/red)", keys:["waxy","new potato","red potato"], search:"potato salad",
+       tip:"Waxy potatoes hold their shape — that's why they're the kings of potato salad and stews. Don't overboil, dear!"},
+      {label:"All-purpose (Yukon)", keys:["yukon","all-purpose","all purpose"], search:null,
+       tip:"Yukon golds do everything decently — Granny keeps a bag for emergencies. Buttery flavor all on their own!"},
+      {label:"Any potato!", keys:["any"], search:null, tip:null},
+    ],
+  },
+  "onion": {
+    ask: "Onions, the beginning of every good story! Which ones, sweetheart? 🧅",
+    variants: [
+      {label:"Yellow (cooking)", keys:["yellow onion","brown onion"], search:null,
+       tip:"Yellow onions are for cooking — low heat, a pinch of salt, and 20 patient minutes turns them into golden caramel."},
+      {label:"Red (raw/salads)", keys:["red onion","purple onion"], search:"salad",
+       tip:"Red onions shine raw — soak slices in cold water 10 minutes to soften the bite. Lovely pickled, too!"},
+      {label:"White (salsas)", keys:["white onion"], search:"salsa",
+       tip:"White onions are crisp and sharp — the Mexican kitchen's favorite for salsas and tacos, dear."},
+      {label:"Shallots (sauces)", keys:["shallot"], search:null,
+       tip:"Shallots are the gentle cousins — they melt into sauces and vinaigrettes without shouting."},
+      {label:"Any onion!", keys:["any"], search:null, tip:null},
+    ],
+  },
+  "tomatoes": {
+    ask: "Tomatoes! Fresh from the garden or from the pantry, dear? 🍅",
+    variants: [
+      {label:"Fresh", keys:["fresh tomato","garden tomato"], search:"salad",
+       tip:"Never refrigerate fresh tomatoes, sweetheart — the cold murders their flavor. Counter, stem-side down."},
+      {label:"Canned whole", keys:["canned","tinned"], search:"tomato",
+       tip:"Canned whole tomatoes crushed by hand beat pre-crushed every time — and a pinch of sugar balances their acidity."},
+      {label:"Passata / sauce", keys:["passata","puree"], search:"bolognese",
+       tip:"Passata wants time: 20+ minutes of gentle simmering with garlic and basil, and it turns to velvet."},
+      {label:"Cherry", keys:["cherry"], search:"pasta",
+       tip:"Cherry tomatoes burst-roasted with olive oil and garlic make an instant sauce — 15 minutes at 200°C, dear!"},
+      {label:"Any tomato!", keys:["any"], search:null, tip:null},
+    ],
+  },
+};
+
+/* ---------------- Sauce guide (local knowledge, no API needed) ---------------- */
+
+const SAUCES = {
+  "Tomato / marinara": {
+    emoji:"🍅",
+    mini:"Sweat 2 sliced garlic cloves in olive oil (don't brown!), add crushed tomatoes, salt, a pinch of sugar. Simmer 20 min, tear basil in at the end.",
+    pairs:"pasta, meatballs, pizza, eggplant",
+  },
+  "Béchamel (white)": {
+    emoji:"🥛",
+    mini:"Melt 2 tbsp butter, whisk in 2 tbsp flour for 1 minute, then slowly whisk in 2 cups warm milk. Simmer until it coats a spoon; season with salt and a whisper of nutmeg.",
+    pairs:"lasagna, gratins, mac & cheese, croque monsieur",
+  },
+  "Pesto": {
+    emoji:"🌿",
+    mini:"Blend 2 cups basil, 1 garlic clove, 3 tbsp pine nuts (or sunflower seeds!), ½ cup olive oil, then stir in ½ cup grated parmesan. No cooking at all, dear!",
+    pairs:"pasta, sandwiches, grilled fish, tomatoes",
+  },
+  "Alfredo": {
+    emoji:"🧈",
+    mini:"Melt ½ cup butter with 1 cup cream, simmer 2 minutes, take OFF the heat and stir in 1 cup parmesan until silky. Pepper generously.",
+    pairs:"fettuccine, chicken, broccoli",
+  },
+  "Gravy": {
+    emoji:"🍗",
+    mini:"Keep the pan drippings! Whisk in 2 tbsp flour over medium heat, then slowly add 2 cups stock, whisking away every lump. Simmer until glossy.",
+    pairs:"roast chicken, mashed potatoes, biscuits",
+  },
+  "Chimichurri": {
+    emoji:"🌶️",
+    mini:"Chop 1 cup parsley fine, add 3 minced garlic cloves, 2 tbsp red wine vinegar, ½ cup olive oil, chili flakes, salt. Let it rest 30 minutes — the wait is the recipe.",
+    pairs:"steak, grilled vegetables, sausages",
+  },
+  "Vinaigrette": {
+    emoji:"🥗",
+    mini:"Granny's ratio: 3 parts oil, 1 part acid (vinegar or lemon), 1 tsp mustard, 1 tsp honey, salt. Shake it in a jar like you mean it!",
+    pairs:"salads, roasted veg, grain bowls",
+  },
+  "Soy-ginger": {
+    emoji:"🥢",
+    mini:"Mix 3 tbsp soy sauce, 1 tbsp grated ginger, 1 minced garlic clove, 1 tbsp honey, 1 tsp sesame oil. Splash into the hot pan at the very end.",
+    pairs:"stir-fries, rice bowls, salmon, noodles",
+  },
+};
+
+const SAUCE_PAIRINGS = {
+  "pasta": ["Tomato / marinara","Pesto","Alfredo","Béchamel (white)"],
+  "spaghetti": ["Tomato / marinara","Pesto","Alfredo"],
+  "steak": ["Chimichurri","Gravy"],
+  "beef": ["Chimichurri","Gravy"],
+  "fish": ["Pesto","Soy-ginger","Vinaigrette"],
+  "salmon": ["Soy-ginger","Pesto"],
+  "chicken": ["Gravy","Soy-ginger","Alfredo"],
+  "salad": ["Vinaigrette","Pesto"],
+  "rice": ["Soy-ginger","Chimichurri"],
+  "vegetables": ["Chimichurri","Vinaigrette","Soy-ginger"],
+  "potatoes": ["Gravy","Chimichurri"],
+  "lasagna": ["Béchamel (white)","Tomato / marinara"],
+};
+
+/* ---------------- Per-ingredient cooking wisdom (added to results) ---------------- */
+
+const COOKING_TIPS = {
+  "chicken": "Pat chicken DRY before it meets the pan, don't move it too soon, and cook to 74°C/165°F inside. Golden and juicy, always. 🍗",
+  "beef": "Take beef out of the fridge 30 min before cooking, sear hard, and let it REST after — the juices need to settle back in.",
+  "fish": "Skin-side down first, and don't flip until it releases on its own. Fish tells you when it's ready, dear.",
+  "shrimp": "Shrimp cook in 2–3 minutes — the moment they curl into a C, they're done. An O means overdone!",
+  "eggs": "For boiled eggs: start in boiling water (easier peeling!), 7 min for jammy, 10 for firm, then straight into iced water.",
+  "rice": "One rule above all: once the lid goes on, no peeking! Steam is doing the work, sweetheart.",
+  "pasta": "Salt the water like the sea, cook 1 minute LESS than the box says, and finish the pasta IN the sauce with a splash of pasta water.",
+  "potatoes": "Potatoes start in COLD salted water — dropped into boiling water they cook outside-in and turn to mush at the edges.",
+  "onion": "Low and slow, dear: onions need 20 patient minutes to caramelize. High heat burns, it never sweetens.",
+  "garlic": "Garlic burns in seconds and turns bitter — add it AFTER the onions, and keep it moving. 30 seconds of perfume is enough.",
+  "mushrooms": "Dry pan first! Let mushrooms release their water and brown before any oil or salt. Crowded, wet mushrooms just boil sadly.",
+  "beans": "Dried beans: soak overnight, simmer gently (a rolling boil breaks their skins), and salt when they start to soften.",
+  "tomatoes": "A pinch of sugar in any tomato dish balances the acidity — Granny's oldest trick in the book.",
+  "broccoli": "Blanch broccoli 2 minutes then shock in iced water — emerald green and crisp, never army-grey.",
+  "spinach": "Spinach shrinks to nothing — a mountain becomes a spoonful. Cook it seconds only, dear, and squeeze it well for fillings.",
+};
+function cookingTipFor(word){
+  const w=word.toLowerCase();
+  return COOKING_TIPS[w]||COOKING_TIPS[w+"s"]||COOKING_TIPS[w.replace(/s$/,"")]||null;
+}
+
+// bare ingredient words that should trigger the ingredient flow (with disambiguation when available)
+const KNOWN_INGREDIENTS = new Set([
+  "rice","pasta","potatoes","potato","tomatoes","tomato","onion","onions",
+  "egg","eggs","mushroom","mushrooms","garlic","cheese","beans",
+  "chicken","beef","fish","shrimp","salmon","broccoli","spinach","carrot","carrots",
+]);
+// map singular/plural word to the canonical INGREDIENT_TYPES key
+function typeKeyFor(word){
+  const w=word.toLowerCase();
+  if(INGREDIENT_TYPES[w]) return w;
+  if(INGREDIENT_TYPES[w+"s"]) return w+"s";
+  if(INGREDIENT_TYPES[w+"es"]) return w+"es";
+  if(w.endsWith("s")&&INGREDIENT_TYPES[w.slice(0,-1)]) return w.slice(0,-1);
+  return null;
+}
+// keys that are also DISH names — valid as answers to the type question,
+// but never hijack free text ("recipe for risotto" must mean the dish!)
+const DISHY_KEYS = new Set(["risotto","lasagn","sushi","salad","salsa","mash"]);
+// if the user already named a specific type ("basmati rice"), find it directly
+function detectTypedVariant(t){
+  for(const [base,def] of Object.entries(INGREDIENT_TYPES)){
+    for(const v of def.variants){
+      if(v.keys.some(k=>k!=="any"&&!DISHY_KEYS.has(k)&&t.includes(k)))
+        return {base, variant:v};
+    }
+  }
+  return null;
+}
+
+const CATEGORIES = ["Beef","Chicken","Dessert","Lamb","Miscellaneous","Pasta","Pork","Seafood","Side","Starter","Vegan","Vegetarian","Breakfast","Goat"];
+const AREAS = ["American","British","Canadian","Chinese","Croatian","Dutch","Egyptian","Filipino","French","Greek","Indian","Irish","Italian","Jamaican","Japanese","Kenyan","Malaysian","Mexican","Moroccan","Polish","Portuguese","Russian","Spanish","Thai","Tunisian","Turkish","Ukrainian","Vietnamese"];
+const CATEGORY_WORDS = {
+  "dessert":"Dessert","sweet":"Dessert","cake":"Dessert","pudding":"Dessert",
+  "beef":"Beef","steak":"Beef","chicken":"Chicken","lamb":"Lamb",
+  "pork":"Pork","bacon":"Pork","pasta":"Pasta","noodle":"Pasta","spaghetti":"Pasta",
+  "seafood":"Seafood","fish":"Seafood","shrimp":"Seafood","prawn":"Seafood","salmon":"Seafood","tuna":"Seafood",
+  "vegan":"Vegan","vegetarian":"Vegetarian","veggie":"Vegetarian",
+  "breakfast":"Breakfast","brunch":"Breakfast",
+  "starter":"Starter","appetizer":"Starter","side":"Side","goat":"Goat",
+};
+
+/* ---------------- User profile (diet / allergies / dislikes) ---------------- */
+
+const DIETS = ["Vegetarian","Vegan","Pescatarian","Gluten-free","Lactose-free"];
+const ALLERGY_OPTIONS = ["Nuts","Peanuts","Shellfish","Eggs","Dairy","Gluten","Soy","Sesame"];
+
+// ingredient terms blocked by each restriction (substring match, lowercase)
+const BLOCK_TERMS = {
+  diet: {
+    "vegetarian": ["chicken","beef","pork","lamb","bacon","ham","sausage","meat","goat","duck","turkey","veal","fish","salmon","tuna","cod","haddock","anchov","sardine","shrimp","prawn","crab","lobster","mussel","clam","oyster","squid","gelatin","lard","stock cube","beef stock","chicken stock"],
+    "vegan": ["chicken","beef","pork","lamb","bacon","ham","sausage","meat","goat","duck","turkey","veal","fish","salmon","tuna","cod","haddock","anchov","sardine","shrimp","prawn","crab","lobster","mussel","clam","oyster","squid","gelatin","lard","egg","milk","cheese","butter","cream","yogurt","yoghurt","honey","ghee","mayonnaise"],
+    "pescatarian": ["chicken","beef","pork","lamb","bacon","ham","sausage","goat","duck","turkey","veal","gelatin","lard"],
+    "gluten-free": ["flour","wheat","bread","breadcrumb","pasta","spaghetti","noodle","couscous","barley","semolina","farro","rye","cracker","panko","tortilla wrap","beer","soy sauce"],
+    "lactose-free": ["milk","cheese","butter","cream","yogurt","yoghurt","ghee","custard","condensed milk"],
+  },
+  allergy: {
+    "nuts": ["almond","walnut","cashew","pecan","hazelnut","pistachio","macadamia","brazil nut","pine nut","nuts","nut butter"],
+    "peanuts": ["peanut"],
+    "shellfish": ["shrimp","prawn","crab","lobster","mussel","clam","oyster","scallop","squid","crayfish"],
+    "eggs": ["egg"],
+    "dairy": ["milk","cheese","butter","cream","yogurt","yoghurt","ghee","custard"],
+    "gluten": ["flour","wheat","bread","breadcrumb","pasta","spaghetti","noodle","couscous","barley","semolina","rye","panko","beer","soy sauce"],
+    "soy": ["soy","tofu","edamame","miso","tempeh"],
+    "sesame": ["sesame","tahini"],
+  },
+};
+
+const profile = { diet: null, allergies: [], dislikes: [] };
+let onboarded = false;
+
+function loadProfile(){
+  try{
+    const raw = localStorage.getItem("granny-profile");
+    if (raw){
+      const p = JSON.parse(raw);
+      profile.diet = p.diet || null;
+      profile.allergies = p.allergies || [];
+      profile.dislikes = p.dislikes || [];
+      onboarded = !!p.onboarded;
+    }
+  }catch(e){ /* sandboxed preview: memory only */ }
+}
+function saveProfile(){
+  try{
+    localStorage.setItem("granny-profile",
+      JSON.stringify({ ...profile, onboarded }));
+  }catch(e){ /* fine */ }
+}
+
+function blockTerms(){
+  const terms = [];
+  if (profile.diet) terms.push(...(BLOCK_TERMS.diet[profile.diet.toLowerCase()] || []));
+  for (const a of profile.allergies) terms.push(...(BLOCK_TERMS.allergy[a.toLowerCase()] || []));
+  for (const d of profile.dislikes) if (d.length >= 3) terms.push(d.toLowerCase());
+  return [...new Set(terms)];
+}
+
+/** Check a full meal against the profile. Returns {ok, offenders:[…]} */
+function vetMeal(meal){
+  const terms = blockTerms();
+  if (!terms.length) return { ok:true, offenders:[] };
+  const ingText = parseIngredients(meal).map(x=>x.ing.toLowerCase());
+  const offenders = new Set();
+  for (const term of terms)
+    for (const ing of ingText)
+      if (ing.includes(term)) offenders.add(term);
+  return { ok: offenders.size===0, offenders:[...offenders] };
+}
+
+function profileSummary(){
+  const bits = [];
+  if (profile.diet) bits.push(profile.diet);
+  if (profile.allergies.length) bits.push("no " + profile.allergies.join(", no "));
+  if (profile.dislikes.length) bits.push("dislikes: " + profile.dislikes.join(", "));
+  return bits.join(" · ");
+}
+
+/* ---------------- DOM helpers ---------------- */
+
+const chatEl   = document.getElementById("chat");
+const typingEl = document.getElementById("typing");
+const typingLabel = document.getElementById("typingLabel");
+const avatarEl = document.getElementById("grannyAvatar");
+const form     = document.getElementById("inputForm");
+const input    = document.getElementById("inputBox");
+const profileStrip = document.getElementById("profileStrip");
+
+const TYPING_LABELS = [
+  "Granny is stirring the pot",
+  "Granny is checking her recipe box",
+  "Granny is tasting the sauce",
+  "Granny is dusting off her cookbook",
+];
+
+const history = [];
+let lastRecipe = null;       // {name, category, area, ingredients[], instructions}
+let busy = false;
+let prefsStage = null;       // null | 'diet' | 'allergies' | 'dislikes'
+let pendingText = null;      // request paused by onboarding
+let allergyDraft = [];
+let pendingChoice = null;    // {kind:'ing-type', base} | {kind:'sauce-menu'} — awaiting a pick
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function scrollDown(){ chatEl.scrollTop = chatEl.scrollHeight; }
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+
+function addUserMsg(text){
+  const div=document.createElement("div");
+  div.className="msg user"; div.textContent=text;
+  chatEl.appendChild(div); scrollDown();
+}
+function addGrannyMsg(html, note){
+  const div=document.createElement("div");
+  div.className="msg granny";
+  div.innerHTML=`<span class="who">Granny Rosa</span>${html}`+
+                (note?`<span class="note">${note}</span>`:"");
+  chatEl.appendChild(div); scrollDown();
+}
+function showTyping(on){
+  typingEl.hidden=!on;
+  avatarEl.classList.toggle("cooking",on);
+  if(on) typingLabel.textContent=pick(TYPING_LABELS);
+  scrollDown();
+}
+
+/** Quick-reply buttons inside the chat. multi=true allows toggling + Done. */
+function addQuickReplies(options, {multi=false}={}){
+  const wrap=document.createElement("div");
+  wrap.className="qr";
+  const send = text => { wrap.classList.add("used"); handleUserText(text); };
+  options.forEach(opt=>{
+    const b=document.createElement("button");
+    b.className="qr-btn"; b.textContent=opt.label;
+    b.addEventListener("click",()=>{
+      if (wrap.classList.contains("used")) return;
+      if (multi && opt.toggle){
+        b.classList.toggle("on");
+        return;
+      }
+      if (multi && opt.done){
+        const chosen=[...wrap.querySelectorAll(".qr-btn.on")].map(x=>x.textContent);
+        send(chosen.length ? chosen.join(", ") : opt.value);
+        return;
+      }
+      send(opt.value ?? opt.label);
+    });
+    wrap.appendChild(b);
+  });
+  chatEl.appendChild(wrap); scrollDown();
+}
+
+function updateProfileStrip(){
+  const s=profileSummary();
+  profileStrip.hidden=!s;
+  profileStrip.innerHTML= s
+    ? `👤 Cooking for: <b>${esc(s)}</b> <button id="editPrefs" class="strip-btn">change</button>`
+    : "";
+  document.getElementById("editPrefs")?.addEventListener("click",()=>startPrefsFlow(null,true));
+}
+
+/* ---------------- Recipe rendering ---------------- */
+
+function parseIngredients(meal){
+  const list=[];
+  for(let i=1;i<=20;i++){
+    const ing=(meal["strIngredient"+i]||"").trim();
+    const mea=(meal["strMeasure"+i]||"").trim();
+    if(ing) list.push({ing,mea});
+  }
+  return list;
+}
+
+function ytSearchUrl(q){ return "https://www.youtube.com/results?search_query="+encodeURIComponent(q+" recipe"); }
+function gSearchUrl(q){ return "https://www.google.com/search?q="+encodeURIComponent(q+" recipe"); }
+
+function swapHintsFor(offenders){
+  const hints=[];
+  for(const o of offenders){
+    const key=Object.keys(SUBSTITUTIONS).find(k=>o.includes(k)||k.includes(o));
+    if(key) hints.push(`<b>${esc(key)}</b> → ${SUBSTITUTIONS[key]}`);
+  }
+  return hints.slice(0,3);
+}
+
+function setLastRecipe(o){ lastRecipe=o; }
+
+function addRecipeCard(meal){
+  setLastRecipe({
+    name:meal.strMeal, category:meal.strCategory, area:meal.strArea,
+    ingredients:parseIngredients(meal).map(x=>`${x.mea} ${x.ing}`.trim()),
+    instructions:(meal.strInstructions||"").slice(0,1500),
+  });
+  const vet=vetMeal(meal);
+  const ings=parseIngredients(meal);
+  const card=document.createElement("article");
+  card.className="recipe-card";
+  card.innerHTML=`
+    <img class="photo" src="${esc(meal.strMealThumb)}" alt="${esc(meal.strMeal)}" loading="lazy">
+    <div class="recipe-body">
+      <h2 class="recipe-title">${esc(meal.strMeal)}</h2>
+      <div class="recipe-meta">
+        ${meal.strCategory?`<span class="badge cat">${esc(meal.strCategory)}</span>`:""}
+        ${meal.strArea?`<span class="badge area">${esc(meal.strArea)}</span>`:""}
+      </div>
+      ${!vet.ok?`<div class="warnbox">⚠️ Careful, dear — this uses <b>${vet.offenders.map(esc).join(", ")}</b>, which doesn't fit your profile. Granny's swaps:<br>${swapHintsFor(vet.offenders).join("<br>")||"Ask me for a substitution and we'll fix it together!"}</div>`:""}
+      <ul class="recipe-ings">
+        ${ings.map(x=>`<li>${esc(x.ing)} <span class="measure">${esc(x.mea)}</span></li>`).join("")}
+      </ul>
+      <details class="method">
+        <summary>Read Granny's method</summary>
+        <p class="method-text">${esc(meal.strInstructions||"")}</p>
+      </details>
+      <div class="recipe-actions">
+        ${meal.strYoutube
+          ? `<a class="rc-btn video" href="${esc(meal.strYoutube)}" target="_blank" rel="noopener">▶ Watch video</a>`
+          : `<a class="rc-btn video" href="${ytSearchUrl(meal.strMeal)}" target="_blank" rel="noopener">▶ Find videos</a>`}
+        <a class="rc-btn web" href="${gSearchUrl(meal.strMeal)}" target="_blank" rel="noopener">🔎 Search web</a>
+        <button class="rc-btn ask" data-ask="1">💬 Ask Granny</button>
+      </div>
+    </div>`;
+  card.querySelector("[data-ask]")?.addEventListener("click",()=>{
+    input.value=`About the ${meal.strMeal} — `; input.focus();
+  });
+  chatEl.appendChild(card); scrollDown();
+}
+
+/** Recipe invented/recalled by Claude — no photo is faked; search links are real searches. */
+function addLLMRecipeCard(r, thumb){
+  setLastRecipe({
+    name:r.title, category:r.cuisine||"", area:"",
+    ingredients:(r.ingredients||[]).map(i=>`${i.amount||""} ${i.item||""}`.trim()),
+    instructions:(r.steps||[]).join(" ").slice(0,1500),
+  });
+  const card=document.createElement("article");
+  card.className="recipe-card llm";
+  card.innerHTML=`
+    ${thumb
+      ? `<img class="photo" src="${esc(thumb)}" alt="${esc(r.title)}" loading="lazy">`
+      : `<div class="photo llm-photo"><span>${esc(r.emoji||"🍲")}</span></div>`}
+    <div class="recipe-body">
+      <h2 class="recipe-title">${esc(r.title)}</h2>
+      <div class="recipe-meta">
+        <span class="badge brain">👵 Granny's own</span>
+        ${r.cuisine?`<span class="badge area">${esc(r.cuisine)}</span>`:""}
+        ${r.time_minutes?`<span class="badge cat">⏱ ${esc(String(r.time_minutes))} min</span>`:""}
+        ${r.servings?`<span class="badge cat">🍽 serves ${esc(String(r.servings))}</span>`:""}
+      </div>
+      <ul class="recipe-ings">
+        ${(r.ingredients||[]).map(i=>`<li>${esc(i.item||"")} <span class="measure">${esc(i.amount||"")}</span></li>`).join("")}
+      </ul>
+      <details class="method" open>
+        <summary>Read Granny's method</summary>
+        <p class="method-text">${(r.steps||[]).map((s,i)=>`${i+1}. ${esc(s)}`).join("\n")}</p>
+      </details>
+      ${r.granny_tip?`<p class="granny-tip">💡 ${esc(r.granny_tip)}</p>`:""}
+      <div class="recipe-actions">
+        <a class="rc-btn video" href="${ytSearchUrl(r.title)}" target="_blank" rel="noopener">▶ Find videos</a>
+        <a class="rc-btn web" href="${gSearchUrl(r.title)}" target="_blank" rel="noopener">🔎 Search web</a>
+      </div>
+    </div>`;
+  chatEl.appendChild(card); scrollDown();
+}
+
+function addPickList(meals, intro){
+  addGrannyMsg(intro);
+  const wrap=document.createElement("div");
+  wrap.className="pick-list";
+  meals.slice(0,8).forEach(m=>{
+    const b=document.createElement("button");
+    b.className="pick";
+    b.innerHTML=`<img src="${esc(m.strMealThumb)}/medium" alt="" loading="lazy"><span>${esc(m.strMeal)}</span>`;
+    b.addEventListener("click",()=>handleUserText(m.strMeal,{forceLookupId:m.idMeal}));
+    wrap.appendChild(b);
+  });
+  chatEl.appendChild(wrap); scrollDown();
+}
+
+/* ---------------- TheMealDB layer ---------------- */
+
+const MDB="https://www.themealdb.com/api/json/v1/1";
+async function mdb(path){
+  const r=await fetch(`${MDB}/${path}`);
+  if(!r.ok) throw new Error("mealdb "+r.status);
+  return r.json();
+}
+const mdbSearch = q  => mdb(`search.php?s=${encodeURIComponent(q)}`);
+const mdbLookup = id => mdb(`lookup.php?i=${encodeURIComponent(id)}`);
+const mdbRandom = () => mdb(`random.php`);
+const mdbByIngr = i  => mdb(`filter.php?i=${encodeURIComponent(i)}`);
+const mdbByCat  = c  => mdb(`filter.php?c=${encodeURIComponent(c)}`);
+const mdbByArea = a  => mdb(`filter.php?a=${encodeURIComponent(a)}`);
+
+/** Look up details for a pool of light meals, drop the profile-blocked ones. */
+async function vetPool(lightMeals, cap=14){
+  const pool=shuffle(lightMeals).slice(0,cap);
+  const detailed=(await Promise.all(
+    pool.map(m=>mdbLookup(m.idMeal).then(d=>d.meals?.[0]).catch(()=>null))
+  )).filter(Boolean);
+  const ok=[], blocked=[];
+  for(const meal of detailed) (vetMeal(meal).ok?ok:blocked).push(meal);
+  return {ok, blockedCount:blocked.length};
+}
+
+/* ---------------- LLM layer (Claude via /api/chat) ---------------- */
+
+async function callChatAPI(body){
+  const r=await fetch("/api/chat",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({...body, profile}),
+  });
+  if(!r.ok) throw new Error("llm "+r.status);
+  return r.json();
+}
+
+async function askClaude(userText){
+  const data=await callChatAPI({
+    messages:history.slice(-8),
+    recipeContext:lastRecipe,
+  });
+  if(!data.reply) throw new Error("empty");
+  return data.reply;
+}
+
+/** Ask Claude for a STRUCTURED recipe (classic dishes, no invented links). */
+async function askClaudeRecipe(query){
+  const data=await callChatAPI({ mode:"recipe", query, messages:[] });
+  return data; // {recipe:{...}} or {reply:"text"}
+}
+
+const LLM_DOWN_MSG =
+  `Oh sweetheart, my thinking cap is off at the moment! 🧢 But Granny can still: find <b>recipes</b> (try <i>"I have chicken"</i> or <i>"surprise me"</i>), give <b>substitutions</b> (<i>"instead of eggs"</i>) and share <b>tips</b>. Ask me one of those!`;
+
+async function askClaudeFlow(raw, preamble){
+  if(preamble) addGrannyMsg(preamble);
+  try{
+    const reply=await askClaude(raw);
+    history.push({role:"assistant",content:reply});
+    addGrannyMsg(esc(reply).replace(/\n/g,"<br>"));
+  }catch(e){
+    addGrannyMsg(LLM_DOWN_MSG,
+      "Tip for the cook who built me: the free features work everywhere — Granny's AI brain needs the /api/chat function deployed.");
+  }
+}
+
+async function inventRecipeFlow(query, preamble){
+  addGrannyMsg(preamble || pick([
+    "Let me put on my reading glasses and write you a proper recipe, dear… 👓",
+    "Ooh, a challenge! Granny loves those. One homemade recipe coming up: ✍️",
+  ]));
+  try{
+    const data=await askClaudeRecipe(query);
+    if(data.recipe && data.recipe.title){
+      // try to dress it with a real photo from TheMealDB, if the dish exists there
+      let thumb=null;
+      try{
+        const d=await mdbSearch(data.recipe.title.split(" ").slice(0,3).join(" "));
+        thumb=d.meals?.[0]?.strMealThumb||null;
+      }catch(e){}
+      addLLMRecipeCard(data.recipe, thumb);
+      history.push({role:"assistant",content:`I shared my recipe for ${data.recipe.title}.`});
+    } else if(data.reply){
+      addGrannyMsg(esc(data.reply).replace(/\n/g,"<br>"));
+      history.push({role:"assistant",content:data.reply});
+    } else throw new Error("empty");
+  }catch(e){
+    addGrannyMsg(LLM_DOWN_MSG);
+  }
+}
+
+/* ---------------- Onboarding & preferences flow ---------------- */
+
+function startPrefsFlow(resumeText, isEdit=false){
+  prefsStage="diet";
+  pendingText=resumeText||null;
+  allergyDraft=[];
+  addGrannyMsg(isEdit
+    ? `Of course, dear, let's update your little card in my book. 📔 First: any special diet?`
+    : `Before I open the recipe box, let Granny set your place at the table. 📔 <b>Any special diet, dear?</b>`);
+  addQuickReplies([
+    {label:"No special diet", value:"No special diet"},
+    ...DIETS.map(d=>({label:d, value:d})),
+  ]);
+}
+
+function prefsHandle(text){
+  const t=text.trim();
+
+  if(prefsStage==="diet"){
+    const d=DIETS.find(x=>t.toLowerCase().includes(x.toLowerCase()));
+    profile.diet=d||null;
+    prefsStage="allergies";
+    addGrannyMsg(`${d?`<b>${esc(d)}</b> — noted with a big red pin! 📌`:`No special diet — lovely, the whole pantry is ours!`}<br>Now, very important, sweetheart: <b>any allergies?</b> Tap all that apply, then "Done".`);
+    addQuickReplies([
+      ...ALLERGY_OPTIONS.map(a=>({label:a, toggle:true})),
+      {label:"✅ Done / none", done:true, value:"No allergies"},
+    ],{multi:true});
+    return true;
+  }
+
+  if(prefsStage==="allergies"){
+    profile.allergies=ALLERGY_OPTIONS.filter(a=>t.toLowerCase().includes(a.toLowerCase()));
+    prefsStage="dislikes";
+    addGrannyMsg(`${profile.allergies.length?`Understood: <b>no ${profile.allergies.map(esc).join(", no ")}</b>. Granny guards her table fiercely. 🛡️`:`No allergies — wonderful!`}<br>Last one: <b>anything you just don't like?</b> Type it (e.g. <i>cilantro, olives</i>) or tap skip.`);
+    addQuickReplies([{label:"Nothing — I eat everything!", value:"skip dislikes"}]);
+    return true;
+  }
+
+  if(prefsStage==="dislikes"){
+    if(!/skip dislikes|^no($| )|nothing|eat everything/i.test(t)){
+      profile.dislikes=t.split(/,| and /).map(s=>s.trim().toLowerCase())
+        .filter(s=>s.length>=3 && s.length<=30).slice(0,8);
+    } else profile.dislikes=[];
+    prefsStage=null; onboarded=true; saveProfile(); updateProfileStrip();
+    const s=profileSummary();
+    addGrannyMsg(`All set, my dear! ${s?`Your card reads: <b>${esc(s)}</b>.`:`You eat everything — Granny's favorite kind of guest! 😄`} I'll keep every suggestion inside those lines, and offer swaps when a recipe strays.`);
+    if(pendingText){
+      const resume=pendingText; pendingText=null;
+      addGrannyMsg(`Now, where were we… ah yes: <i>"${esc(resume)}"</i> 🍳`);
+      routeIntent(resume);
+    } else {
+      showMainMenu("Now tell me, sweetheart — what shall we do?");
+    }
+    return true;
+  }
+  return false;
+}
+
+/* ---------------- Disambiguation & sauce flows ---------------- */
+
+function askIngredientType(base){
+  const def=INGREDIENT_TYPES[base];
+  pendingChoice={kind:"ing-type", base};
+  addGrannyMsg(def.ask);
+  addQuickReplies(def.variants.map(v=>({label:v.label, value:v.label})));
+}
+
+async function runTypedVariant(base, variant){
+  if(variant.tip)
+    addGrannyMsg(`📖 <b>Granny's note on ${esc(variant.label.toLowerCase())}:</b><br>${esc(variant.tip)}`);
+  try{
+    // dish direction for this type first (e.g. arborio → risotto)…
+    if(variant.search){
+      const d=await mdbSearch(variant.search);
+      const ok=(d.meals||[]).filter(m=>vetMeal(m).ok);
+      if(ok.length){
+        addPickList(shuffle(ok),
+          `And these dishes suit <b>${esc(variant.label.toLowerCase())}</b> beautifully, dear — tap one: 😋`);
+        return;
+      }
+    }
+    // …otherwise anything with the base ingredient
+    const d=await mdbByIngr(base.replace(/ /g,"_"));
+    if(d.meals){
+      const {ok}=await vetPool(d.meals);
+      if(ok.length){
+        addPickList(ok, `Here's what my box files under <b>${esc(base)}</b>, sweetheart — tap one: 🧺`);
+        return;
+      }
+    }
+    return inventRecipeFlow(`a dish with ${variant.label} ${base}`,
+      `My box came up short for that one — Granny will write you something herself! ✍️`);
+  }catch(e){
+    addGrannyMsg(FALLBACK_OFFLINE);
+  }
+}
+
+function showSauceMenu(intro){
+  pendingChoice={kind:"sauce-menu"};
+  addGrannyMsg(intro||`Ahh, sauces — the soul of the plate! Which one shall Granny teach you, dear? 🥄`);
+  addQuickReplies(Object.entries(SAUCES).map(([name,s])=>({label:`${s.emoji} ${name}`, value:name})));
+}
+
+function showSauce(name){
+  const s=SAUCES[name];
+  if(!s) return false;
+  addGrannyMsg(
+    `${s.emoji} <b>${esc(name)} — Granny's way:</b><br>${esc(s.mini)}`,
+    `Pairs beautifully with: ${esc(s.pairs)}.`);
+  addQuickReplies([
+    {label:"🥄 Another sauce", value:"show me the sauces"},
+    {label:"🍽️ Recipes using it", value:`recipe for ${name.split(" ")[0].replace("/","").trim()}`},
+  ]);
+  return true;
+}
+
+function sauceForTarget(target){
+  const key=Object.keys(SAUCE_PAIRINGS).find(k=>target.includes(k));
+  if(!key) return false;
+  const names=SAUCE_PAIRINGS[key];
+  pendingChoice={kind:"sauce-menu"};
+  addGrannyMsg(`For <b>${esc(key)}</b>, Granny always reaches for one of these — tap it and I'll teach you: 🥄`);
+  addQuickReplies(names.map(n=>({label:`${SAUCES[n].emoji} ${n}`, value:n})));
+  return true;
+}
+
+/** Try to resolve a pending pick (ingredient type / sauce). Returns true if handled. */
+async function resolvePendingChoice(raw){
+  if(!pendingChoice) return false;
+  const t=normalize(raw);
+  const choice=pendingChoice; pendingChoice=null;
+
+  if(choice.kind==="ing-type"){
+    const def=INGREDIENT_TYPES[choice.base];
+    const v=def.variants.find(v=>
+      t===normalize(v.label)||v.keys.some(k=>t.includes(k))||
+      (v.keys.includes("any")&&/\b(any|whatever|doesn'?t matter|don'?t know|no idea)\b/.test(t)));
+    if(v){ await runTypedVariant(choice.base, v); return true; }
+    return false; // user changed subject — route normally
+  }
+  if(choice.kind==="sauce-menu"){
+    const name=Object.keys(SAUCES).find(n=>
+      t.includes(normalize(n).split(" ")[0])||normalize(n).includes(t));
+    if(name) return showSauce(name);
+    return false;
+  }
+  return false;
+}
+
+/* ---------------- Main menu ---------------- */
+
+function showMainMenu(text){
+  addGrannyMsg(text||`What shall we cook up next, dear?`);
+  addQuickReplies([
+    {label:"🎲 Suggest a recipe", value:"surprise me"},
+    {label:"🧺 What's in my fridge", value:"use my fridge"},
+    {label:"🌍 Pick a cuisine", value:"pick a cuisine"},
+    {label:"🍰 By category", value:"pick a category"},
+    {label:"🔄 Substitutions", value:"I need a substitution"},
+    {label:"✨ Granny's tip", value:"give me a tip"},
+  ]);
+}
+
+/* ---------------- Intent rules ---------------- */
+
+function normalize(t){
+  return t.toLowerCase().replace(/[¿¡!?.;:()"]/g," ").replace(/\s+/g," ").trim();
+}
+function findSubstitution(t){
+  const keys=Object.keys(SUBSTITUTIONS).sort((a,b)=>b.length-a.length);
+  return keys.find(k=>t.includes(k));
+}
+
+function detectIntent(raw){
+  const t=normalize(raw);
+
+  if(/^(hi|hii+|hello|hey|hiya|good (morning|afternoon|evening)|yo|olá|oi)\b/.test(t)&&t.split(" ").length<=4)
+    return {type:"greet"};
+  if(/\b(thank(s| you)?|thx|ty)\b/.test(t)&&t.split(" ").length<=5)
+    return {type:"thanks"};
+  if(/^(bye|goodbye|see (ya|you)|good night)\b/.test(t))
+    return {type:"bye"};
+
+  // guided-menu hooks
+  if(/^use my fridge$/.test(t)) return {type:"fridge-prompt"};
+  if(/^pick a cuisine$/.test(t)) return {type:"cuisine-menu"};
+  if(/^pick a category$/.test(t)) return {type:"category-menu"};
+  if(/^i need a substitution$/.test(t)) return {type:"sub-prompt"};
+  if(/\b(preferences|restrictions|my profile|allerg(y|ies)|update my (diet|profile))\b/.test(t)&&t.split(" ").length<=6)
+    return {type:"prefs"};
+
+  // "invent/create/improvise a dish with X" → straight to Claude's structured recipe
+  const invent=t.match(/(?:invent|create|improvise|make up|come up with)(?: a| some)? (?:dish|recipe|meal|something)?(?: (?:with|using|from))?\s*(.*)/);
+  if(invent) return {type:"invent", q:invent[1]||raw};
+
+  // substitutions before "help" (messages like "no eggs, help!")
+  if(/\b(substitut|instead of|replace|swap|alternative|out of|don'?t have|no more|without|\bno\b)\b/.test(t)){
+    const key=findSubstitution(t);
+    if(key) return {type:"sub", key};
+    if(/\b(substitut|instead of|replace|swap|alternative)\b/.test(t))
+      return {type:"sub-unknown"};
+  }
+
+  if((/\b(help|what can you do|how do(es)? (you|this) work)\b/.test(t)&&t.split(" ").length<=4)
+     ||/\bwhat can you do\b/.test(t))
+    return {type:"help"};
+
+  // sauces: "which sauce for pasta", "teach me a sauce", "show me the sauces", "pesto"
+  if(/\bsauces?\b/.test(t)){
+    const forMatch=t.match(/sauces?\s*(?:for|with|goes? with|on|to go with)\s+([a-z ]+)/);
+    if(forMatch) return {type:"sauce-for", target:forMatch[1].trim()};
+    return {type:"sauce-menu"};
+  }
+  {
+    const sauceName=Object.keys(SAUCES).find(n=>{
+      const tokens=normalize(n).split(/[^a-zà-ü-]+/)
+        .filter(w=>w.length>3&&!KNOWN_INGREDIENTS.has(w)&&w!=="white");
+      return tokens.some(tok=>t.includes(tok));
+    });
+    if(sauceName&&t.split(" ").length<=4) return {type:"sauce", name:sauceName};
+  }
+
+  if(/\b(tip|trick|advice|secret|hack)s?\b/.test(t))
+    return {type:"tip"};
+
+  if(/\b(random|surprise|anything|whatever|feeling lucky|dealer'?s choice)\b/.test(t))
+    return {type:"random"};
+
+  const area=AREAS.find(a=>t.includes(a.toLowerCase()));
+  if(area&&/\b(food|dish|meal|recipe|cook|something|cuisine|dinner|lunch)\b/.test(t))
+    return {type:"area", area};
+  if(area&&t===area.toLowerCase())          // bare "Italian" from the cuisine menu (exact only!)
+    return {type:"area", area};
+
+  const nameMatch=t.match(/(?:recipe for|how (?:do i|to|can i) (?:make|cook|bake|prepare))\s+(.+)/);
+  if(nameMatch){
+    const q=nameMatch[1].replace(/\b(a|an|the|some)\b/g,"").trim();
+    // "how do I cook rice" → ask which rice; "how do I cook mushrooms" → granny method
+    const typed=detectTypedVariant(q);
+    if(typed) return {type:"ing-typed", base:typed.base, variant:typed.variant};
+    const tk=typeKeyFor(q);
+    if(tk) return {type:"ing-type-ask", base:tk};
+    if(cookingTipFor(q)) return {type:"howto", ing:q};
+    return {type:"name", q};
+  }
+
+  const ingMatch=t.match(/(?:i have|i've got|got some|cook with|make with|using|with)\s+(?:some |a |an )?([a-z ,]{3,})$/);
+  if(ingMatch){
+    const list=ingMatch[1].split(/,|\band\b/).map(s=>s.trim())
+      .filter(s=>s.length>=3&&!/\b(question|doubt|problem)\b/.test(s)).slice(0,4);
+    if(list.length===1){
+      // one ingredient only → connect the words: typed? ask type? plain flow?
+      const typed=detectTypedVariant(list[0]);
+      if(typed) return {type:"ing-typed", base:typed.base, variant:typed.variant};
+      const tk=typeKeyFor(list[0]);
+      if(tk) return {type:"ing-type-ask", base:tk};
+    }
+    if(list.length) return {type:"ingredient", list};
+  }
+  if((/,/.test(t)||/\band\b/.test(t))&&t.split(" ").length<=8&&
+     !/\b(you|your|what|why|when|who|how|can|is|are|do|instead|replace)\b/.test(t)){
+    const list=t.split(/,|\band\b/).map(s=>s.trim()).filter(s=>s.length>=3).slice(0,4);
+    if(list.length>=2) return {type:"ingredient", list};
+  }
+
+  // bare typed variant anywhere: "basmati rice", "arborio"
+  {
+    const typed=detectTypedVariant(t);
+    if(typed&&t.split(" ").length<=4)
+      return {type:"ing-typed", base:typed.base, variant:typed.variant};
+  }
+
+  for(const [word,cat] of Object.entries(CATEGORY_WORDS)){
+    if(new RegExp(`\\b${word}\\b`).test(t)&&
+       /\b(show|want|give|something|recipe|idea|craving|make|cook|eat)\b/.test(t))
+      return {type:"category", cat};
+  }
+  const bareCat=CATEGORIES.find(c=>t===c.toLowerCase());
+  if(bareCat) return {type:"category", cat:bareCat};
+
+  // bare ingredient word: "rice" → ask which type; "mushrooms" → ingredient flow
+  if(t.split(" ").length<=2&&KNOWN_INGREDIENTS.has(t)){
+    const tk=typeKeyFor(t);
+    if(tk) return {type:"ing-type-ask", base:tk};
+    return {type:"ingredient", list:[t]};
+  }
+
+  if(t.split(" ").length<=3&&!/\b(you|your|what|why|when|who|can|is|are|do)\b/.test(t))
+    return {type:"maybe-name", q:t};
+
+  return null;
+}
+
+/* ---------------- Intent handlers ---------------- */
+
+const GREETINGS=[
+  "Well hello there, dear! ☺️ Come in, come in — the kettle's on. What are we cooking today?",
+  "Hello, sweetheart! Granny Rosa at your service. Hungry for a recipe, a kitchen trick, or a little substitution magic?",
+  "Oh, hello honey! Pull up a chair. Tell Granny what's in your fridge and we'll make something wonderful. 🍳",
+];
+const THANKS_REPLIES=[
+  "Oh, you're so very welcome, dear! Cooking is love made visible. 💕",
+  "Anytime, sweetheart! Now go make your kitchen smell wonderful.",
+  "That's what Granny is here for, honey! Come back whenever your pot needs stirring.",
+];
+const BYE_REPLIES=[
+  "Goodbye, dear! Cook with love and taste as you go. Granny will be right here. 👋",
+  "Off you go, sweetheart! Don't forget to preheat the oven. 💕",
+];
+const FALLBACK_OFFLINE="Oh dear, my recipe box seems stuck shut — I can't reach my recipes from here! 📪 (If this is the sandbox preview, that's why: recipes come alive on the published site or opening the files locally.) Meanwhile, ask me for a <b>substitution</b> or a <b>kitchen tip</b> — those I keep in my apron pocket! 🍪";
+
+// intents that lead to recipes → trigger onboarding first
+const RECIPE_INTENTS=new Set(["random","ingredient","category","area","name","maybe-name","invent","fridge-prompt","cuisine-menu","category-menu","ing-type-ask","ing-typed","howto"]);
+
+async function runIntent(intent, raw){
+  switch(intent.type){
+
+    case "greet":  addGrannyMsg(pick(GREETINGS)); showMainMenu(""); return;
+    case "thanks": addGrannyMsg(pick(THANKS_REPLIES)); return;
+    case "bye":    addGrannyMsg(pick(BYE_REPLIES)); return;
+    case "prefs":  startPrefsFlow(null,true); return;
+
+    case "help":
+      addGrannyMsg(
+        `Of course, dear! Granny's kitchen works like this:<br>
+         🍽️ <b>Find recipes</b> — by name (<i>"recipe for lasagna"</i>), by what's in your fridge (<i>"I have chicken, rice"</i>), by cuisine (<i>"something Italian"</i>) or category (<i>"a dessert"</i>)<br>
+         👵 <b>Granny's own recipes</b> — if my box doesn't have it, I write one myself (<i>"invent a dish with rice and beans"</i>)<br>
+         🔄 <b>Substitutions</b> — <i>"instead of eggs?"</i><br>
+         ✨ <b>Tips</b> — 60 years of tricks<br>
+         🛡️ And I remember your <b>diet, allergies and dislikes</b> — say "my preferences" to change them.`);
+      showMainMenu("");
+      return;
+
+    case "tip":
+      addGrannyMsg(`✨ <b>Granny's little secret:</b><br>${pick(GRANNY_TIPS)}`);
+      return;
+
+    case "ing-type-ask": askIngredientType(intent.base); return;
+    case "ing-typed":    return runTypedVariant(intent.base, intent.variant);
+    case "sauce-menu":   showSauceMenu(); return;
+    case "sauce":        showSauce(intent.name); return;
+    case "sauce-for":
+      if(!sauceForTarget(intent.target)) showSauceMenu(
+        `Hmm, I don't have a pairing card for that one, dear — but here's my whole sauce shelf: 🥄`);
+      return;
+
+    case "howto": {
+      const tip=cookingTipFor(intent.ing);
+      addGrannyMsg(`👵 <b>How Granny cooks ${esc(intent.ing)}:</b><br>${esc(tip)}`);
+      // then offer real dishes with it
+      try{
+        const d=await mdbByIngr(intent.ing.replace(/ /g,"_"));
+        if(d.meals){
+          const {ok}=await vetPool(d.meals,10);
+          if(ok.length) addPickList(ok, `And here are some dishes to practice on, sweetheart: 🍽️`);
+        }
+      }catch(e){/* tip alone is fine */}
+      return;
+    }
+
+    case "sub":
+      addGrannyMsg(`🔄 <b>No ${esc(intent.key)}? No panic, dear!</b><br>${SUBSTITUTIONS[intent.key]}`,
+        "Granny's rule: swaps change texture a little — taste and adjust with love.");
+      return;
+
+    case "sub-prompt":
+      addGrannyMsg(`Tell me which ingredient is missing (or unwelcome), dear — like <i>"instead of butter"</i> — and I'll open my little swap notebook. 📔`);
+      addQuickReplies([
+        {label:"🥚 Eggs", value:"instead of eggs"},
+        {label:"🧈 Butter", value:"instead of butter"},
+        {label:"🥛 Milk", value:"instead of milk"},
+        {label:"🌾 Flour", value:"instead of flour"},
+        {label:"🧅 Onion", value:"instead of onion"},
+      ]);
+      return;
+
+    case "fridge-prompt":
+      addGrannyMsg(`Open that fridge and tell Granny what you see, sweetheart! List a few things, like: <i>"chicken, rice, tomatoes"</i> 🧺`);
+      return;
+
+    case "cuisine-menu":
+      addGrannyMsg(`Where shall our taste buds travel today, dear? 🌍`);
+      addQuickReplies(shuffle(AREAS).slice(0,10).map(a=>({label:a, value:a})));
+      return;
+
+    case "category-menu":
+      addGrannyMsg(`What kind of plate are we dreaming of, sweetheart?`);
+      addQuickReplies(["Breakfast","Pasta","Seafood","Vegetarian","Vegan","Dessert","Starter","Side"].map(c=>({label:c, value:c})));
+      return;
+
+    case "random": {
+      // respect the profile: try a few random draws until one passes
+      for(let i=0;i<6;i++){
+        const d=await mdbRandom();
+        const meal=d.meals[0];
+        if(vetMeal(meal).ok){
+          addGrannyMsg(pick([
+            "Let me close my eyes and pick one from the recipe box… 🎲 Ah, this one!",
+            "Granny's lucky dip! This one always gets compliments:",
+            "Ooh, fate says you should cook this today, dear:",
+          ]));
+          addRecipeCard(meal);
+          return;
+        }
+      }
+      // box kept offering blocked dishes → Granny writes one herself
+      return inventRecipeFlow(
+        `a ${profile.diet||""} main dish ${profile.allergies.length?"without "+profile.allergies.join(", "):""}`,
+        `My box keeps offering things that don't fit your profile, dear — so Granny will write one just for you! ✍️`);
+    }
+
+    case "ingredient": {
+      const list=(intent.list||[intent.ing]).map(s=>s.toLowerCase());
+      const variants=ing=>{
+        const v=new Set([ing]);
+        if(/s$/.test(ing)) v.add(ing.replace(/s$/,"")); else v.add(ing+"s");
+        return [...v];
+      };
+      const results=await Promise.all(list.map(async ing=>{
+        const seen=new Map();
+        for(const v of variants(ing)){
+          try{
+            const d=await mdbByIngr(v.replace(/ /g,"_"));
+            (d.meals||[]).forEach(m=>seen.set(m.idMeal,m));
+          }catch(e){}
+        }
+        return {ing, meals:[...seen.values()]};
+      }));
+      const found=results.filter(r=>r.meals.length);
+      const missed=results.filter(r=>!r.meals.length).map(r=>r.ing);
+
+      if(!found.length)
+        return inventRecipeFlow(`a dish using ${list.join(", ")}`,
+          `My recipe box doesn't index <b>${list.map(esc).join(", ")}</b> by those names, dear… but Granny never gives up on a pantry! Let me write you one myself: ✍️`);
+
+      // open the cards of the best candidates; match ingredients by substring; vet by profile
+      found.sort((a,b)=>a.meals.length-b.meals.length);
+      const pool=new Map();
+      for(const r of found) for(const m of shuffle(r.meals)){
+        if(pool.size>=14) break;
+        pool.set(m.idMeal,m);
+      }
+      const detailed=(await Promise.all(
+        [...pool.keys()].map(id=>mdbLookup(id).then(d=>d.meals?.[0]).catch(()=>null))
+      )).filter(Boolean);
+
+      const scored=detailed.map(meal=>{
+        const ingText=parseIngredients(meal).map(x=>x.ing.toLowerCase()).join(" | ");
+        const hits=list.filter(ing=>
+          ingText.includes(ing)||(/s$/.test(ing)&&ingText.includes(ing.replace(/s$/,""))));
+        return {meal, hits, ok:vetMeal(meal).ok};
+      }).filter(s=>s.ok)
+        .sort((a,b)=>b.hits.length-a.hits.length);
+
+      const best=scored[0]?.hits.length||0;
+      const tipIng=list.find(i=>cookingTipFor(i));
+      const tipNote=tipIng?`<span class="note">👵 Granny's trick for ${esc(tipIng)}: ${esc(cookingTipFor(tipIng))}</span>`:"";
+      const note=(missed.length?`<span class="note">My box doesn't index ${missed.map(esc).join(", ")} — Granny can work those in: try "invent a dish with ${list.join(", ")}"</span>`:"")+tipNote;
+
+      if(best>=list.length&&best>0){
+        addPickList(scored.filter(s=>s.hits.length===best).map(s=>s.meal),
+          `Oh, wonderful pantry! 🧺 These dishes use <b>ALL of your ingredients</b> (${list.map(esc).join(", ")}) and fit your profile — tap one:${note}`);
+        return;
+      }
+      if(best>=2){
+        addPickList(scored.filter(s=>s.hits.length>=2).map(s=>s.meal),
+          `Not one dish in my box uses all ${list.length} together, dear — but these use <b>${best} of them</b> (and respect your profile)! Tap one:${note}`);
+        return;
+      }
+      if(scored.length){
+        addPickList(scored.map(s=>s.meal),
+          `Hmm, my box has no single card combining those, sweetheart. These use at least one — or shall Granny <i>invent</i> one with everything? Just say <i>"invent a dish with ${list.map(esc).join(", ")}"</i> 💡${note}`);
+        return;
+      }
+      return inventRecipeFlow(`a dish using ${list.join(", ")}`,
+        `Everything my box offered clashed with your profile, dear — Granny will write one just for you instead! ✍️`);
+    }
+
+    case "category": {
+      const d=await mdbByCat(intent.cat);
+      if(!d.meals){ addGrannyMsg(FALLBACK_OFFLINE); return; }
+      const {ok, blockedCount}=await vetPool(d.meals);
+      if(!ok.length)
+        return inventRecipeFlow(`a ${intent.cat} recipe`,
+          `Every ${esc(intent.cat)} card in my box clashed with your profile, dear — Granny will write one that fits! ✍️`);
+      addPickList(ok, `Craving <b>${esc(intent.cat)}</b>? Granny approves! ${blockedCount?`(I hid ${blockedCount} that didn't fit your profile.) `:""}Tap one: 😋`);
+      return;
+    }
+
+    case "area": {
+      const d=await mdbByArea(intent.area);
+      if(!d.meals){ addGrannyMsg(FALLBACK_OFFLINE); return; }
+      const {ok, blockedCount}=await vetPool(d.meals);
+      if(!ok.length)
+        return inventRecipeFlow(`a classic ${intent.area} dish`,
+          `Every ${esc(intent.area)} card in my box clashed with your profile — so Granny will cook one up herself! ✍️`);
+      addPickList(ok, `Ah, <b>${esc(intent.area)}</b> cooking! Granny once had a pen pal from there. ${blockedCount?`(I hid ${blockedCount} that didn't fit your profile.) `:""}Look at these: 🌍`);
+      return;
+    }
+
+    case "name":
+    case "maybe-name": {
+      const d=await mdbSearch(intent.q);
+      if(d.meals&&d.meals.length===1){
+        addGrannyMsg(`Found it in my recipe box, dear! Here's my <b>${esc(d.meals[0].strMeal)}</b>: 💕`);
+        addRecipeCard(d.meals[0]);
+        return;
+      }
+      if(d.meals&&d.meals.length>1){
+        addPickList(d.meals,`I have a few of those tucked away, sweetheart! Which one shall we cook? 📖`);
+        return;
+      }
+      if(intent.type==="name")
+        return inventRecipeFlow(intent.q,
+          `My recipe box doesn't have that exact card, dear… but Granny never leaves anyone hungry — I'll write it from memory! ✍️`);
+      return askClaudeFlow(raw);
+    }
+
+    case "invent":
+      return inventRecipeFlow(intent.q||raw);
+
+    case "sub-unknown":
+      return askClaudeFlow(raw,
+        `Hmm, that swap isn't in Granny's little notebook — let me think it through for you, dear… 📔`);
+  }
+}
+
+/* ---------------- Main flow ---------------- */
+
+async function routeIntent(text){
+  const intent=detectIntent(text);
+  try{
+    if(intent) await runIntent(intent,text);
+    else       await askClaudeFlow(text);
+  }catch(e){
+    addGrannyMsg(FALLBACK_OFFLINE);
+  }
+}
+
+async function handleUserText(text, opts={}){
+  if(busy) return;
+  const trimmed=text.trim();
+  if(!trimmed) return;
+
+  busy=true;
+  addUserMsg(trimmed);
+  history.push({role:"user",content:trimmed});
+  showTyping(true);
+  await new Promise(r=>setTimeout(r,450+Math.random()*450));
+
+  try{
+    if(prefsStage){                       // we're inside the onboarding dialog
+      prefsHandle(trimmed);
+    } else if(opts.forceLookupId){
+      pendingChoice=null;
+      const d=await mdbLookup(opts.forceLookupId);
+      addGrannyMsg(pick([
+        "Wonderful choice, dear! Apron on — here we go: 👩‍🍳",
+        "Ohh, one of my favorites! Here's the full card from my box:",
+        "Lovely pick, sweetheart! Read it slowly, cook it with love:",
+      ]));
+      addRecipeCard(d.meals[0]);
+    } else if(await resolvePendingChoice(trimmed)){
+      /* handled a type/sauce pick */
+    } else {
+      const intent=detectIntent(trimmed);
+      if(!onboarded&&intent&&RECIPE_INTENTS.has(intent.type)){
+        startPrefsFlow(trimmed);          // pause the request, ask profile first
+      } else {
+        await routeIntent(trimmed);
+      }
+    }
+  }catch(e){
+    addGrannyMsg(FALLBACK_OFFLINE);
+  }finally{
+    showTyping(false);
+    busy=false;
+  }
+}
+
+/* ---------------- Wire up UI ---------------- */
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const v=input.value; input.value="";
+  handleUserText(v);
+});
+document.getElementById("chips").addEventListener("click",e=>{
+  const chip=e.target.closest(".chip");
+  if(chip) handleUserText(chip.dataset.say);
+});
+
+/* ---------------- Welcome ---------------- */
+
+window.addEventListener("DOMContentLoaded",()=>{
+  loadProfile();
+  updateProfileStrip();
+  addGrannyMsg(
+    `Well hello, my dear! ☺️ I'm <b>Granny Rosa</b> — sixty years of stirring, tasting and rescuing dinners.<br><br><b>How can I help you today?</b>`
+  );
+  addQuickReplies([
+    {label:"❓ What can you do?", value:"what can you do"},
+    {label:"🎲 Suggest a recipe", value:"surprise me"},
+    {label:"🧺 What's in my fridge", value:"use my fridge"},
+    {label:"🌍 Pick a cuisine", value:"pick a cuisine"},
+  ]);
+});
+
+</script>
+</body>
+</html>
