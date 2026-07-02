@@ -1,0 +1,402 @@
+/* =========================================================
+   GRANNY'S KITCHEN — vintage kitchen table design
+   Palette:
+     --gingham  #B5382C  (tablecloth red)
+     --paper    #FBF3E4  (butter-cream paper)
+     --ink      #4A342A  (warm brown ink)
+     --sage     #7C8A5E  (herb green)
+     --butter   #E9B44C  (butter yellow accent)
+   ========================================================= */
+
+:root{
+  --gingham:#B5382C;
+  --gingham-dark:#96291f;
+  --paper:#FBF3E4;
+  --paper-deep:#F3E6CF;
+  --ink:#4A342A;
+  --ink-soft:#7a6355;
+  --sage:#7C8A5E;
+  --sage-deep:#5f6c46;
+  --butter:#E9B44C;
+  --card-shadow:0 3px 10px rgba(74,52,42,.18);
+  --radius:14px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Nunito',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--gingham);
+}
+
+/* ---------- gingham tablecloth backdrop ---------- */
+.tablecloth{
+  position:fixed;inset:0;z-index:0;
+  background-color:var(--gingham);
+  background-image:
+    linear-gradient(rgba(255,255,255,.32) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(255,255,255,.32) 50%, transparent 50%);
+  background-size:46px 46px;
+  background-blend-mode:overlay;
+}
+.tablecloth::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(rgba(150,41,31,.35) 50%, transparent 50%) 0 23px/46px 46px,
+    linear-gradient(90deg, rgba(150,41,31,.35) 50%, transparent 50%) 23px 0/46px 46px;
+}
+
+/* ---------- main sheet ---------- */
+.kitchen{
+  position:relative;z-index:1;
+  max-width:680px;
+  margin:0 auto;
+  min-height:100dvh;
+  display:flex;flex-direction:column;
+  background:var(--paper);
+  background-image:radial-gradient(rgba(74,52,42,.045) 1px, transparent 1.4px);
+  background-size:22px 22px;
+  box-shadow:0 0 40px rgba(0,0,0,.35);
+}
+
+/* ---------- header banner ---------- */
+.banner{
+  position:relative;
+  display:flex;align-items:center;gap:16px;
+  padding:18px 22px 22px;
+  background:var(--paper-deep);
+  border-bottom:3px dashed rgba(181,56,44,.45);
+}
+.banner h1{
+  font-family:'Yeseva One',serif;
+  font-size:clamp(1.5rem,5vw,2.1rem);
+  margin:0;color:var(--gingham);
+  letter-spacing:.5px;
+}
+.banner-sub{
+  font-family:'Caveat',cursive;
+  font-size:clamp(1.05rem,3.5vw,1.3rem);
+  margin:2px 0 0;color:var(--ink-soft);
+}
+.banner-avatar{
+  position:relative;flex:0 0 auto;
+  width:64px;height:64px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #fff, var(--butter));
+  border:3px solid var(--gingham);
+  display:grid;place-items:center;
+  font-size:2rem;
+  box-shadow:var(--card-shadow);
+}
+.avatar-pot{
+  position:absolute;right:-8px;bottom:-6px;
+  font-size:1.1rem;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25));
+}
+.banner-avatar.cooking .avatar-face{animation:stir 1s ease-in-out infinite}
+@keyframes stir{
+  0%,100%{transform:rotate(-4deg)}
+  50%{transform:rotate(5deg) translateY(-2px)}
+}
+.banner-stitch{
+  position:absolute;left:12px;right:12px;bottom:6px;height:0;
+  border-bottom:2px dotted rgba(124,138,94,.6);
+}
+
+/* ---------- chat area ---------- */
+.chat{
+  flex:1;
+  padding:20px 16px 8px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+  display:flex;flex-direction:column;gap:14px;
+}
+
+.msg{
+  max-width:86%;
+  padding:11px 15px;
+  border-radius:var(--radius);
+  line-height:1.5;
+  font-size:.98rem;
+  box-shadow:var(--card-shadow);
+  animation:pop .28s ease both;
+  overflow-wrap:break-word;
+}
+@keyframes pop{
+  from{opacity:0;transform:translateY(8px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+.msg.granny{
+  align-self:flex-start;
+  background:#fff;
+  border:1.5px solid rgba(181,56,44,.25);
+  border-top-left-radius:4px;
+}
+.msg.granny .who{
+  display:block;
+  font-family:'Caveat',cursive;
+  font-size:1.15rem;font-weight:700;
+  color:var(--gingham);
+  margin-bottom:2px;
+}
+.msg.user{
+  align-self:flex-end;
+  background:var(--sage);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+.msg a{color:var(--gingham);font-weight:700}
+.msg.user a{color:#fff}
+.msg .note{
+  display:block;margin-top:6px;
+  font-size:.85rem;color:var(--ink-soft);font-style:italic;
+}
+
+/* ---------- recipe index card ---------- */
+.recipe-card{
+  align-self:flex-start;
+  width:min(420px,94%);
+  background:linear-gradient(#fffdf6,#fdf6e3);
+  border:1px solid rgba(74,52,42,.2);
+  border-radius:6px;
+  box-shadow:var(--card-shadow);
+  transform:rotate(-.6deg);
+  position:relative;
+  animation:pop .32s ease both;
+  overflow:hidden;
+}
+.recipe-card:nth-child(even){transform:rotate(.5deg)}
+.recipe-card::before{               /* washi tape */
+  content:"";
+  position:absolute;top:-8px;left:50%;
+  width:98px;height:24px;
+  transform:translateX(-50%) rotate(-2deg);
+  background:repeating-linear-gradient(45deg,
+      rgba(233,180,76,.85) 0 8px, rgba(233,180,76,.65) 8px 16px);
+  border-left:1px dashed rgba(255,255,255,.7);
+  border-right:1px dashed rgba(255,255,255,.7);
+  z-index:2;
+}
+.recipe-card img.photo{
+  width:100%;height:180px;object-fit:cover;display:block;
+  border-bottom:2px dashed rgba(181,56,44,.35);
+}
+.recipe-body{padding:14px 16px 16px}
+.recipe-title{
+  font-family:'Caveat',cursive;
+  font-size:1.6rem;font-weight:700;
+  margin:0 0 4px;color:var(--ink);
+}
+.recipe-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.badge{
+  font-size:.72rem;font-weight:800;letter-spacing:.4px;
+  text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;
+}
+.badge.cat{background:rgba(181,56,44,.12);color:var(--gingham)}
+.badge.area{background:rgba(124,138,94,.16);color:var(--sage-deep)}
+.recipe-ings{
+  margin:0 0 6px;padding:0;list-style:none;
+  columns:2;column-gap:18px;
+  font-size:.88rem;
+}
+.recipe-ings li{
+  break-inside:avoid;
+  padding:2px 0 2px 16px;position:relative;
+}
+.recipe-ings li::before{
+  content:"•";position:absolute;left:2px;color:var(--butter);
+  font-weight:900;
+}
+.recipe-ings .measure{color:var(--ink-soft)}
+details.method{margin-top:8px}
+details.method summary{
+  cursor:pointer;font-weight:800;color:var(--sage-deep);
+  font-size:.9rem;list-style:none;display:flex;align-items:center;gap:6px;
+}
+details.method summary::before{content:"📖"}
+details.method[open] summary::before{content:"📖"}
+details.method summary::marker{display:none}
+.method-text{
+  margin-top:8px;font-size:.88rem;line-height:1.55;
+  white-space:pre-line;color:var(--ink);
+  border-left:3px solid var(--butter);
+  padding-left:10px;
+}
+.recipe-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rc-btn{
+  border:none;cursor:pointer;
+  font-family:'Nunito';font-weight:800;font-size:.82rem;
+  padding:8px 13px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:6px;
+  transition:transform .15s, box-shadow .15s;
+  text-decoration:none;
+}
+.rc-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.rc-btn.video{background:#ff0000;color:#fff}
+.rc-btn.ask{background:var(--butter);color:var(--ink)}
+
+/* ---------- meal pick list ---------- */
+.pick-list{
+  align-self:flex-start;
+  display:flex;gap:10px;overflow-x:auto;
+  max-width:100%;padding:6px 2px 10px;
+  scrollbar-width:thin;
+}
+.pick{
+  flex:0 0 130px;border:none;cursor:pointer;
+  background:#fff;border-radius:10px;overflow:hidden;
+  box-shadow:var(--card-shadow);
+  font-family:'Nunito';font-size:.78rem;font-weight:700;color:var(--ink);
+  padding:0 0 8px;text-align:center;
+  transition:transform .15s;
+}
+.pick:hover{transform:translateY(-3px)}
+.pick img{width:100%;height:86px;object-fit:cover;display:block;margin-bottom:6px}
+.pick span{display:block;padding:0 8px;line-height:1.25}
+
+/* ---------- typing indicator ---------- */
+.typing{
+  display:flex;align-items:center;gap:9px;
+  padding:6px 20px 10px;color:var(--ink-soft);
+  font-family:'Caveat',cursive;font-size:1.15rem;
+}
+.dots i{
+  display:inline-block;width:7px;height:7px;margin-right:4px;
+  border-radius:50%;background:var(--gingham);
+  animation:bounce 1s infinite;
+}
+.dots i:nth-child(2){animation-delay:.15s}
+.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{
+  0%,60%,100%{transform:translateY(0);opacity:.5}
+  30%{transform:translateY(-6px);opacity:1}
+}
+
+/* ---------- chips ---------- */
+.chips{
+  display:flex;gap:8px;overflow-x:auto;
+  padding:8px 14px;
+  scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;border:1.5px solid rgba(181,56,44,.4);
+  background:#fff;color:var(--gingham);
+  font-family:'Nunito';font-weight:800;font-size:.82rem;
+  padding:7px 14px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s,transform .15s;
+}
+.chip:hover{background:var(--gingham);color:#fff;transform:translateY(-1px)}
+
+/* ---------- input bar ---------- */
+.inputbar{
+  display:flex;gap:10px;align-items:center;
+  padding:12px 14px 14px;
+  background:var(--paper-deep);
+  border-top:3px dashed rgba(181,56,44,.45);
+}
+#inputBox{
+  flex:1;border:2px solid rgba(74,52,42,.25);
+  border-radius:999px;
+  padding:12px 18px;font-size:1rem;font-family:'Nunito';
+  background:#fff;color:var(--ink);outline:none;
+  transition:border-color .15s, box-shadow .15s;
+}
+#inputBox:focus{
+  border-color:var(--sage);
+  box-shadow:0 0 0 3px rgba(124,138,94,.25);
+}
+.send{
+  flex:0 0 auto;width:52px;height:52px;border-radius:50%;
+  border:none;cursor:pointer;
+  background:var(--gingham);
+  display:grid;place-items:center;
+  box-shadow:var(--card-shadow);
+  transition:transform .15s, background .15s;
+}
+.send:hover{background:var(--gingham-dark);transform:rotate(-10deg) scale(1.05)}
+.send .spoon{font-size:1.5rem;transform:rotate(35deg)}
+
+/* ---------- footer ---------- */
+.credits{
+  text-align:center;font-size:.72rem;color:var(--ink-soft);
+  padding:8px 14px 12px;background:var(--paper-deep);
+}
+.credits a{color:var(--sage-deep)}
+
+/* ---------- quick replies (in-chat buttons) ---------- */
+.qr{
+  display:flex;flex-wrap:wrap;gap:8px;
+  align-self:flex-start;max-width:92%;
+  animation:pop .28s ease both;
+}
+.qr-btn{
+  border:1.5px solid rgba(124,138,94,.55);
+  background:#fff;color:var(--sage-deep);
+  font-family:'Nunito';font-weight:800;font-size:.85rem;
+  padding:8px 14px;border-radius:999px;cursor:pointer;
+  transition:background .15s,color .15s,transform .15s;
+}
+.qr-btn:hover{background:var(--sage);color:#fff;transform:translateY(-1px)}
+.qr-btn.on{background:var(--sage);color:#fff;box-shadow:inset 0 0 0 2px var(--butter)}
+.qr.used .qr-btn{opacity:.45;pointer-events:none}
+
+/* ---------- profile strip ---------- */
+.profile-strip{
+  padding:7px 18px;font-size:.8rem;color:var(--ink-soft);
+  background:rgba(124,138,94,.14);
+  border-bottom:1px dashed rgba(124,138,94,.5);
+}
+.strip-btn{
+  border:none;background:none;color:var(--sage-deep);
+  font-weight:800;text-decoration:underline;cursor:pointer;
+  font-family:'Nunito';font-size:.78rem;padding:0 2px;
+}
+
+/* ---------- LLM recipe card (Granny's own) ---------- */
+.recipe-card.llm{background:linear-gradient(#fffef8,#fbf2dd)}
+.recipe-card.llm::before{
+  background:repeating-linear-gradient(45deg,
+      rgba(124,138,94,.85) 0 8px, rgba(124,138,94,.6) 8px 16px);
+}
+.llm-photo{
+  width:100%;height:130px;display:grid;place-items:center;
+  font-size:3.4rem;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(233,180,76,.5), transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(181,56,44,.3), transparent 55%),
+    var(--paper-deep);
+  border-bottom:2px dashed rgba(124,138,94,.5);
+}
+.badge.brain{background:rgba(233,180,76,.3);color:#8a6412}
+.granny-tip{
+  margin:10px 0 0;font-family:'Caveat',cursive;
+  font-size:1.15rem;color:var(--sage-deep);line-height:1.35;
+}
+.rc-btn.web{background:var(--sage);color:#fff}
+
+/* ---------- profile warning inside a recipe card ---------- */
+.warnbox{
+  margin:0 0 10px;padding:9px 12px;
+  background:rgba(181,56,44,.08);
+  border:1.5px dashed rgba(181,56,44,.5);
+  border-radius:8px;font-size:.84rem;line-height:1.5;
+}
+
+/* ---------- accessibility / motion ---------- */
+.chip:focus-visible,.send:focus-visible,.pick:focus-visible,.qr-btn:focus-visible,.strip-btn:focus-visible,
+.rc-btn:focus-visible,#inputBox:focus-visible{
+  outline:3px solid var(--butter);outline-offset:2px;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .chat{scroll-behavior:auto}
+}
+
+/* ---------- small screens ---------- */
+@media (max-width:480px){
+  .recipe-ings{columns:1}
+  .banner{padding:14px 16px 18px}
+  .msg{max-width:92%}
+}

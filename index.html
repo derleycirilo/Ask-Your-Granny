@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Granny's Kitchen — Cooking tips with love</title>
+<meta name="description" content="Chat with Granny Rosa: recipes, kitchen tricks and ingredient substitutions, served with love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Caveat:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👵</text></svg>">
+</head>
+<body>
+
+<div class="tablecloth" aria-hidden="true"></div>
+
+<main class="kitchen">
+
+  <!-- ===== Header banner ===== -->
+  <header class="banner">
+    <div class="banner-avatar" id="grannyAvatar">
+      <span class="avatar-face">👵</span>
+      <span class="avatar-pot" aria-hidden="true">🍲</span>
+    </div>
+    <div class="banner-text">
+      <h1>Granny's Kitchen</h1>
+      <p class="banner-sub">Recipes, tricks &amp; substitutions — served with love</p>
+    </div>
+    <div class="banner-stitch" aria-hidden="true"></div>
+  </header>
+
+  <!-- ===== Active profile strip ===== -->
+  <div class="profile-strip" id="profileStrip" hidden></div>
+
+  <!-- ===== Chat area ===== -->
+  <section class="chat" id="chat" aria-live="polite" aria-label="Conversation with Granny Rosa">
+    <!-- messages are inserted here by app.js -->
+  </section>
+
+  <!-- ===== Typing indicator ===== -->
+  <div class="typing" id="typing" hidden>
+    <span class="typing-avatar">👵</span>
+    <span class="typing-label" id="typingLabel">Granny is stirring the pot</span>
+    <span class="dots"><i></i><i></i><i></i></span>
+  </div>
+
+  <!-- ===== Quick suggestion chips ===== -->
+  <div class="chips" id="chips" role="toolbar" aria-label="Quick suggestions">
+    <button class="chip" data-say="Surprise me with a recipe!">🎲 Surprise me!</button>
+    <button class="chip" data-say="I have chicken, rice and tomatoes">🧺 My fridge…</button>
+    <button class="chip" data-say="What can I use instead of eggs?">🥚 Substitute eggs</button>
+    <button class="chip" data-say="invent a dish with rice and beans">👵 Invent for me</button>
+    <button class="chip" data-say="show me the sauces">🥄 Sauces</button>
+    <button class="chip" data-say="Give me one of your kitchen tips">✨ Granny's tip</button>
+    <button class="chip" data-say="my preferences">⚙️ Preferences</button>
+  </div>
+
+  <!-- ===== Input bar ===== -->
+  <form class="inputbar" id="inputForm" autocomplete="off">
+    <input id="inputBox" type="text" maxlength="300"
+           placeholder="Ask Granny anything about cooking…"
+           aria-label="Type your message to Granny">
+    <button type="submit" class="send" aria-label="Send message">
+      <span class="spoon">🥄</span>
+    </button>
+  </form>
+
+  <footer class="credits">
+    Recipes &amp; photos from <a href="https://www.themealdb.com" target="_blank" rel="noopener">TheMealDB</a>
+    · Granny's brain powered by <a href="https://www.anthropic.com" target="_blank" rel="noopener">Claude</a>
+    · A classroom experiment 🧑‍🍳
+  </footer>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
